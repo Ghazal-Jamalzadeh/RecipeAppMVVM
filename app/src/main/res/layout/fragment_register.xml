@@ -26,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/register_logo"
                 android:padding="@dimen/_20mdp" />
             <!--Name-->
             <com.google.android.material.textfield.TextInputLayout
