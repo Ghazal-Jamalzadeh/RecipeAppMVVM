@@ -1,13 +1,15 @@
 package com.jmzd.ghazal.recipeappmvvm
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.jmzd.ghazal.recipeappmvvm.databinding.ActivityMainBinding
-import dagger.hilt.android.AndroidEntryPoint
+import com.jmzd.ghazal.recipeappmvvm.utils.BaseActivity
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     //Binding
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         navHost = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
 
     }
-
 
     override fun onNavigateUp(): Boolean {
         return navHost.navController.navigateUp() || super.onNavigateUp()
