@@ -1,13 +1,16 @@
 package com.jmzd.ghazal.recipeappmvvm.data.network
 
 
+import com.jmzd.ghazal.recipeappmvvm.models.register.BodyRegister
+import com.jmzd.ghazal.recipeappmvvm.models.register.ResponseRegister
+import com.jmzd.ghazal.recipeappmvvm.utils.Constants.API_KEY
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiServices {
-//    @POST("users/connect")
-//    suspend fun postRegister(@Query(API_KEY) apiKey: String, @Body body: BodyRegister): Response<ResponseRegister>
-//
+    @POST("users/connect")
+    suspend fun postRegister(@Query(API_KEY) apiKey: String, @Body body: BodyRegister): Response<ResponseRegister>
+
 //    @GET("recipes/complexSearch")
 //    suspend fun getRecipes(@QueryMap queries: Map<String, String>): Response<ResponseRecipes>
 //

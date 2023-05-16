@@ -1,0 +1,39 @@
+پیاده سازی ApiServices-----------------------------------------------------------------------------
+داکیومنت کامل api ها در لینک زیر:
+https://spoonacular.com/food-api/docs
+خیلی api های استاندارد و خوبی داره
+
+توی تمام api ها بلا استثنا باید apiKey که گرفتید رو بفرستید.
+
+Register--------------------------------------------------------------------------------------------
+اولین api ی که بررسی میکنیم
+https://spoonacular.com/food-api/docs#Connect-User
+مربوط به ثبت نام یوزر هست
+هدری که از ما میخواد
+Content-Type: application/json
+این رو اکثرا رتروفیت خودش رو هدر همه ریکوعستا میفرسته
+
+POST https://api.spoonacular.com/users/connect
+Headers
+Response Headers:
+Content-Type: application/json
+
+Example Request Body
+POST https://api.spoonacular.com/users/connect
+{
+    "username": "your user's name",
+    "firstName": "your user's first name",
+    "lastName": "your user's last name",
+    "email": "your user's email"
+}
+
+Response Body
+{
+    "username": "api_123_user",
+    "spoonacularPassword": "meadwith31grapejam",
+    "hash": "q572587bq2405724q05"
+}
+هش حکم همون توکن رو داره توی این api
+
+@POST("users/connect")
+suspend fun postRegister(@Query(API_KEY) apiKey: String, @Body body: BodyRegister): Response<ResponseRegister>
