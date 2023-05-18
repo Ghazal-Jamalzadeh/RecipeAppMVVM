@@ -94,3 +94,12 @@ android:adjustViewBounds="true"
 کویل میاد این عملیات رو روی ترد بک گراند انجام میده که ui ما هم کند و فریز نمیشه در نتیجه
 
 کلا کویل و گلاید خیلی آپشن های بیشتری دارن
+
+TextInput Layout Error state------------------------------------------------------------------------
+کافیه که متن ارور رو بهش بدیم یا متن ارور رو خالی بذاریم
+ emailTxtLay.error = ""
+ emailTxtLay.error = getString(R.string.emailNotValid)
+رنگ ارور رو هم که قبلا ست کردیم توی استایلش
+<item name="boxStrokeErrorColor">@color/tart_orange</item>
+در حالت عادی از استایل زیر استفاده میکنه
+<item name="boxStrokeColor">@color/darkGreen</item>
