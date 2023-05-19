@@ -53,7 +53,8 @@ class SplashFragment : Fragment() {
                     findNavController().popBackStack(R.id.splashFragment, true)
 
                     if (storedData.username.isNotEmpty()) {
-                        //navigate to home
+                        findNavController().navigate(R.id.action_to_recipeFragment)
+
                     } else {
                         /* کدهای زیر در واقع مشابه هستن */
 //                        findNavController().navigate(R.id.registerFragment)

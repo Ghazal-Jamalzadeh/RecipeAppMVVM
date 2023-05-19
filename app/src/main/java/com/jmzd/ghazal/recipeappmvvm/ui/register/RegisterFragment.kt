@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.data.repository.RegisterRepository
@@ -101,6 +102,8 @@ class RegisterFragment : Fragment() {
                 is NetworkRequest.Success -> {
                     response.data?.let { data : ResponseRegister ->
                         viewModel.saveData(data.username.toString(), data.hash.toString())
+                        findNavController().popBackStack(R.id.registerFragment, true)
+                        findNavController().navigate(R.id.action_to_recipeFragment)
                     }
                 }
                 is NetworkRequest.Error -> {
