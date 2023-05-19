@@ -10,7 +10,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jmzd.ghazal.recipeappmvvm.models.register.RegisterStoredModel
 import com.jmzd.ghazal.recipeappmvvm.utils.NetworkResponse
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -24,4 +26,11 @@ class RegisterViewModel @Inject constructor(private val repository: RegisterRepo
         val response  : Response<ResponseRegister> = repository.postRegister(apiKey, body)
         registerLiveData.value = NetworkResponse(response).generalNetworkResponse()
     }
+
+    //Stored data
+    fun saveData(username: String, hash: String) = viewModelScope.launch {
+        repository.saveRegisterData(username, hash)
+    }
+
+    val readData : Flow<RegisterStoredModel> = repository.readRegisterData
 }
