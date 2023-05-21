@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.lucky.LuckyFragment">
+    tools:context=".ui.lucky.LuckyFragment"
+    android:background="@android:color/holo_blue_bright">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

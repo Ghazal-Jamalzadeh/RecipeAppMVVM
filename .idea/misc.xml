@@ -5,8 +5,11 @@
       <map>
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/drawable/bg_shadow_dark.xml" value="0.1285" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_favourites.xml" value="0.2" />
+        <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_lucky.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_recipe.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_register.xml" value="0.2" />
+        <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_search.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
       </map>
     </option>
