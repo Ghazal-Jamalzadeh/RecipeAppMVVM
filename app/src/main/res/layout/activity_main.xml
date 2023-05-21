@@ -13,9 +13,8 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/navigation_main" />
-<!--
 
-    &lt;!&ndash;Bottom menu&ndash;&gt;
+    <!--Bottom menu-->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/mainBottomAppbar"
         android:layout_width="match_parent"
@@ -38,7 +37,7 @@
             app:menu="@menu/menu_main" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
-    &lt;!&ndash;Menu&ndash;&gt;
+    <!--Menu-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mainFabMenu"
         android:layout_width="wrap_content"
@@ -48,6 +47,5 @@
         app:backgroundTint="@color/jacarta"
         app:layout_anchor="@id/mainBottomAppbar"
         app:tint="@color/white" />
--->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

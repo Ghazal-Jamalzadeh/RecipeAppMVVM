@@ -1,13 +1,12 @@
-package com.jmzd.ghazal.recipeappmvvm
+package com.jmzd.ghazal.recipeappmvvm.ui
 
-import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.databinding.ActivityMainBinding
 import com.jmzd.ghazal.recipeappmvvm.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
@@ -24,6 +23,8 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         //Setup nav host
         navHost = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
+        binding.mainBottomNav.background = null
+        binding.mainBottomNav.setupWithNavController(navHost.navController)
 
     }
 
