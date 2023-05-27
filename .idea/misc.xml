@@ -7,12 +7,14 @@
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_favourites.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_lucky.xml" value="0.2" />
-        <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_recipe.xml" value="0.2" />
+        <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_recipe.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_register.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_search.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/item_popular.xml" value="0.2" />
+        <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/item_popular_shimmer.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/item_recipes.xml" value="0.2" />
+        <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/layout/item_recipes_shimmer.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/RecipeAppMVVM/app/src/main/res/menu/menu_main.xml" value="0.2" />
       </map>
     </option>
