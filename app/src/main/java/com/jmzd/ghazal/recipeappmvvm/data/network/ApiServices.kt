@@ -1,6 +1,7 @@
 package com.jmzd.ghazal.recipeappmvvm.data.network
 
 
+import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.models.register.BodyRegister
 import com.jmzd.ghazal.recipeappmvvm.models.register.ResponseRegister
 import com.jmzd.ghazal.recipeappmvvm.utils.Constants.API_KEY
@@ -11,8 +12,8 @@ interface ApiServices {
     @POST("users/connect")
     suspend fun postRegister(@Query(API_KEY) apiKey: String, @Body body: BodyRegister): Response<ResponseRegister>
 
-//    @GET("recipes/complexSearch")
-//    suspend fun getRecipes(@QueryMap queries: Map<String, String>): Response<ResponseRecipes>
+    @GET("recipes/complexSearch")
+    suspend fun getRecipes(@QueryMap queries: Map<String, String>): Response<ResponseRecipes>
 //
 //    @GET("recipes/{id}/information")
 //    suspend fun getDetail(@Path("id") id: Int, @Query(API_KEY) apiKey: String): Response<ResponseDetail>
