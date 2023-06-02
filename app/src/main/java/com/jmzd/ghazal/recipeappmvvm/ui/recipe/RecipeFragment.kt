@@ -61,6 +61,7 @@ class RecipeFragment : Fragment() {
         }
         //Call data
         viewModel.getPopulars(viewModel.getPopularQueries())
+        viewModel.getRecents(viewModel.getRecentQueries())
         //load data
         loadPopularData()
     }
@@ -106,6 +107,32 @@ class RecipeFragment : Fragment() {
         }
     }
 
+
+
+    private fun loadRecentData() {
+        binding.apply {
+            viewModel.recentsLiveData.observe(viewLifecycleOwner) { response : NetworkRequest<ResponseRecipes> ->
+                when (response) {
+                    is NetworkRequest.Loading -> {
+                        setupLoading(true, recipesList)
+                    }
+                    is NetworkRequest.Success -> {
+                        setupLoading(false, recipesList)
+                        response.data?.let { data : ResponseRecipes->
+                            if (data.results!!.isNotEmpty()) {
+                           /*     recentAdapter.setData(data.results)*/
+                            }
+                        }
+                    }
+                    is NetworkRequest.Error -> {
+                        setupLoading(false, recipesList)
+                        binding.root.showSnackBar(response.message!!)
+                    }
+                }
+            }
+        }
+    }
+
     private fun setupLoading(isShownLoading: Boolean, shimmer: ShimmerRecyclerView) {
         shimmer.apply {
             if (isShownLoading) showShimmer() else hideShimmer()
@@ -130,6 +157,17 @@ class RecipeFragment : Fragment() {
         popularAdapter.setOnItemClickListener { id : Int ->
             //go to detail page
         }
+    }
+
+    private fun initRecentRecycler() {
+   /*     binding.recipesList.setupRecyclerview(
+            LinearLayoutManager(requireContext()),
+            recentAdapter
+        )
+        //Click
+        recentAdapter.setOnItemClickListener {
+            gotoDetailPage(it)
+        }*/
     }
 
     private fun autoScrollPopular(list: List<ResponseRecipes.Result>) {

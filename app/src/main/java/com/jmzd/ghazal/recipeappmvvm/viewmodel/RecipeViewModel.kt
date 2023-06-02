@@ -38,7 +38,7 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
 
     //---Recent---//
     //Queries
-    fun recentQueries(): HashMap<String, String> {
+    fun getRecentQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
         queries[Constants.API_KEY] = Constants.MY_API_KEY
         queries[Constants.TYPE] = Constants.MAIN_COURSE
