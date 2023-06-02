@@ -117,6 +117,9 @@ class RecipeFragment : Fragment() {
            myLayoutManager =  LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
             myAdapter = popularAdapter
         )
+        //Snap
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(binding.popularList)
         //Click
         popularAdapter.setOnItemClickListener { id : Int ->
             //go to detail page
