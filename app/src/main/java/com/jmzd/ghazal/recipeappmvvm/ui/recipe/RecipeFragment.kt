@@ -16,6 +16,7 @@ import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentRecipeBinding
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentSplashBinding
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.models.register.RegisterStoredModel
+import com.jmzd.ghazal.recipeappmvvm.utils.Constants
 import com.jmzd.ghazal.recipeappmvvm.utils.NetworkRequest
 import com.jmzd.ghazal.recipeappmvvm.utils.setupRecyclerview
 import com.jmzd.ghazal.recipeappmvvm.utils.showSnackBar
@@ -23,6 +24,7 @@ import com.jmzd.ghazal.recipeappmvvm.viewmodel.RecipeViewModel
 import com.jmzd.ghazal.recipeappmvvm.viewmodel.RegisterViewModel
 import com.todkars.shimmer.ShimmerRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,6 +41,9 @@ class RecipeFragment : Fragment() {
     //viewModel
     private val registerViewModel: RegisterViewModel by viewModels()
     private val viewModel: RecipeViewModel by viewModels()
+
+    //other
+    private var autoScrollIndex = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,6 +93,7 @@ class RecipeFragment : Fragment() {
                         response.data?.let { data : ResponseRecipes ->
                             if (data.results!!.isNotEmpty()) {
                                 fillPopularAdapter(data.results.toMutableList())
+                                autoScrollPopular(data.results)
                             }
                         }
                     }
@@ -123,6 +129,23 @@ class RecipeFragment : Fragment() {
         //Click
         popularAdapter.setOnItemClickListener { id : Int ->
             //go to detail page
+        }
+    }
+
+    private fun autoScrollPopular(list: List<ResponseRecipes.Result>) {
+        /* زمانی که صفحه ساخته شد این بلاک اجرا میشه*/
+        lifecycleScope.launchWhenCreated {
+            /* کدهای داخل این بلاک این تعداد تکرار میشه*/
+            repeat(Constants.REPEAT_TIME) {
+                /* هر ۵ ثانیه این کد اجرا میشه*/
+                delay(Constants.DELAY_TIME)
+                if (autoScrollIndex < list.size) {
+                    autoScrollIndex += 1
+                } else {
+                    autoScrollIndex = 0
+                }
+                binding.popularList.smoothScrollToPosition(autoScrollIndex)
+            }
         }
     }
 
