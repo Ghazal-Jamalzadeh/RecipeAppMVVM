@@ -29,7 +29,7 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         return queries
     }
     //API
-    fun GetPopulars(queries : Map<String , String>) = viewModelScope.launch {
+    fun getPopulars(queries : Map<String , String>) = viewModelScope.launch {
       popularLiveData.value = NetworkRequest.Loading()
         val response : Response<ResponseRecipes> = repository.remote.getRecipes(queries)
         popularLiveData.value = NetworkResponse(response).generalNetworkResponse()
