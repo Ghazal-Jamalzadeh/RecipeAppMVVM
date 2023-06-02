@@ -47,7 +47,7 @@ object Constants {
     const val NEW_IMAGE_SIZE = "636x393.jpg"
     const val REPEAT_TIME = 100
     const val DELAY_TIME = 5000L
-    const val LIMITED_COUNT = 10
+    const val LIMITED_COUNT = 25
     const val FULL_COUNT = 50
     var STEPS_COUNT = 0
 }
