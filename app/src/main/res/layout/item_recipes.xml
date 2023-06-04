@@ -61,7 +61,7 @@
         android:lineSpacingExtra="@dimen/_5mdp"
         android:maxLines="2"
         android:textColor="@color/dolphinGray"
-        android:textColorLink="@color/dolphinGray"
+        android:textColorLink="@color/jacarta"
         android:textSize="@dimen/_8font_mdp"
         app:layout_constraintBottom_toTopOf="@id/recipeInfoLay"
         app:layout_constraintEnd_toEndOf="@id/recipeNameTxt"

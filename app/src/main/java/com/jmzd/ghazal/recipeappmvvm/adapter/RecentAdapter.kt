@@ -55,6 +55,7 @@ class RecentAdapter @Inject constructor() : RecyclerView.Adapter<RecentAdapter.V
             binding.apply {
                 //Text
                 recipeNameTxt.text = item.title
+                //load HTML inside TextView
                 val htmlFormatter = HtmlCompat.fromHtml(item.summary!!, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 recipeDescTxt.text = htmlFormatter
                 recipeLikeTxt.text = item.aggregateLikes.toString()
