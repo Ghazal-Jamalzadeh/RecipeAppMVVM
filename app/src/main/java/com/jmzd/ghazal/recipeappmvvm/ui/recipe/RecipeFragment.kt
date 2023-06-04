@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.adapter.PopularAdapter
+import com.jmzd.ghazal.recipeappmvvm.adapter.RecentAdapter
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentRecipeBinding
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentSplashBinding
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
@@ -37,6 +38,9 @@ class RecipeFragment : Fragment() {
 
     @Inject
     lateinit var popularAdapter: PopularAdapter
+
+    @Inject
+    lateinit var recentAdapter: RecentAdapter
 
     //viewModel
     private val registerViewModel: RegisterViewModel by viewModels()
@@ -64,6 +68,7 @@ class RecipeFragment : Fragment() {
         viewModel.getRecents(viewModel.getRecentQueries())
         //load data
         loadPopularData()
+        loadRecentData()
     }
 
     override fun onDestroy() {
@@ -120,7 +125,8 @@ class RecipeFragment : Fragment() {
                         setupLoading(false, recipesList)
                         response.data?.let { data : ResponseRecipes->
                             if (data.results!!.isNotEmpty()) {
-                           /*     recentAdapter.setData(data.results)*/
+                                recentAdapter.setData(data.results)
+                                initRecentRecycler()
                             }
                         }
                     }
@@ -160,14 +166,14 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initRecentRecycler() {
-   /*     binding.recipesList.setupRecyclerview(
+        binding.recipesList.setupRecyclerview(
             LinearLayoutManager(requireContext()),
             recentAdapter
         )
         //Click
         recentAdapter.setOnItemClickListener {
-            gotoDetailPage(it)
-        }*/
+         /*   gotoDetailPage(it)*/
+        }
     }
 
     private fun autoScrollPopular(list: List<ResponseRecipes.Result>) {

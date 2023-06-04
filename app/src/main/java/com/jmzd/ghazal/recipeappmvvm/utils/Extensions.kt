@@ -1,6 +1,8 @@
 package com.jmzd.ghazal.recipeappmvvm.utils
 
 import android.view.View
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 
@@ -14,4 +16,10 @@ fun RecyclerView.setupRecyclerview(myLayoutManager: RecyclerView.LayoutManager, 
         setHasFixedSize(true) // برای زمانی که اندازه آیتم ها یکسان هستن و کوتاه بلند و اینا نیستن
         adapter = myAdapter
     }
+}
+
+fun TextView.setDynamicallyColor(color: Int) {
+    //Start - Left = 0 || Top = 1 || End - Right = 2 || Bottom = 3
+    this.compoundDrawables[1].setTint(ContextCompat.getColor(context, color))
+    this.setTextColor(ContextCompat.getColor(context, color))
 }
