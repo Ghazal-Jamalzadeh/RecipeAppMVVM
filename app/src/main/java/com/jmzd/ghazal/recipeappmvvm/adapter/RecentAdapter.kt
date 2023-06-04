@@ -41,12 +41,12 @@ class RecentAdapter @Inject constructor() : RecyclerView.Adapter<RecentAdapter.V
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
-  /*      holder.initAnimation()*/
+        holder.initAnimation()
     }
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
-      /*  holder.clearAnimation()*/
+        holder.clearAnimation()
     }
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
@@ -88,13 +88,13 @@ class RecentAdapter @Inject constructor() : RecyclerView.Adapter<RecentAdapter.V
             }
         }
 
-/*        fun initAnimation() {
+        fun initAnimation() {
             binding.root.animation = AnimationUtils.loadAnimation(context, R.anim.item_anim)
         }
 
         fun clearAnimation() {
             binding.root.clearAnimation()
-        }*/
+        }
     }
 
     private var onItemClickListener: ((Int) -> Unit)? = null
