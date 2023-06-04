@@ -15,6 +15,7 @@ import com.jmzd.ghazal.recipeappmvvm.databinding.ItemRecipesBinding
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.utils.BaseDiffUtils
 import com.jmzd.ghazal.recipeappmvvm.utils.Constants
+import com.jmzd.ghazal.recipeappmvvm.utils.minToHour
 import com.jmzd.ghazal.recipeappmvvm.utils.setDynamicallyColor
 import javax.inject.Inject
 
@@ -57,7 +58,7 @@ class RecentAdapter @Inject constructor() : RecyclerView.Adapter<RecentAdapter.V
                 val htmlFormatter = HtmlCompat.fromHtml(item.summary!!, HtmlCompat.FROM_HTML_MODE_COMPACT)
                 recipeDescTxt.text = htmlFormatter
                 recipeLikeTxt.text = item.aggregateLikes.toString()
-               /* recipeTimeTxt.text = item.readyInMinutes!!.minToHour()*/
+                recipeTimeTxt.text = item.readyInMinutes!!.minToHour()
                 recipeHealthTxt.text = item.healthScore.toString()
                 //Image
                 val imageSplit = item.image!!.split("-")
