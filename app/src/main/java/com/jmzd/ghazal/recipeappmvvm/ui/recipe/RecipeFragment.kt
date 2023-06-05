@@ -14,7 +14,6 @@ import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.adapter.PopularAdapter
 import com.jmzd.ghazal.recipeappmvvm.adapter.RecentAdapter
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentRecipeBinding
-import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentSplashBinding
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.models.register.RegisterStoredModel
 import com.jmzd.ghazal.recipeappmvvm.utils.Constants
@@ -64,7 +63,7 @@ class RecipeFragment : Fragment() {
             showUsername()
         }
         //Call data
-        viewModel.getPopulars(viewModel.getPopularQueries())
+        viewModel.callPopularApi(viewModel.getPopularQueries())
         viewModel.getRecents(viewModel.getRecentQueries())
         //load data
         loadPopularData()

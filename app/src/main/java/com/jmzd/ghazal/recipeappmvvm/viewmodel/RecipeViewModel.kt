@@ -1,15 +1,16 @@
 package com.jmzd.ghazal.recipeappmvvm.viewmodel
 
 import android.telephony.SignalStrength
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.jmzd.ghazal.recipeappmvvm.data.database.RecipeEntity
 import com.jmzd.ghazal.recipeappmvvm.data.repository.RecipeRepository
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.utils.Constants
 import com.jmzd.ghazal.recipeappmvvm.utils.NetworkRequest
 import com.jmzd.ghazal.recipeappmvvm.utils.NetworkResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel(){
 
-    //popular
+    //---popular---//
     val popularLiveData = MutableLiveData<NetworkRequest<ResponseRecipes>>()
     //Queries
     fun getPopularQueries(): HashMap<String, String> {
@@ -29,14 +30,32 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         return queries
     }
     //API
-    fun getPopulars(queries : Map<String , String>) = viewModelScope.launch {
+    fun callPopularApi(queries : Map<String , String>) = viewModelScope.launch {
       popularLiveData.value = NetworkRequest.Loading()
         val response : Response<ResponseRecipes> = repository.remote.getRecipes(queries)
         popularLiveData.value = NetworkResponse(response).generalNetworkResponse()
+        //Cache
+        val cache : ResponseRecipes? = popularLiveData.value?.data
+        if (cache != null){
+        offlinePopular(cache)
+        }
+    }
+    //Local
+    private fun savePopular(entity: RecipeEntity) : Job = viewModelScope.launch(Dispatchers.IO) {
+        repository.local.saveRecipes(entity)
+    }
+
+    val popularFromDbLiveData : LiveData<List<RecipeEntity>> = repository.local.loadRecipes().asLiveData()
+
+    private fun offlinePopular(response: ResponseRecipes) {
+        val entity = RecipeEntity(0, response)
+        savePopular(entity)
     }
 
 
+
     //---Recent---//
+    val recentsLiveData = MutableLiveData<NetworkRequest<ResponseRecipes>>()
     //Queries
     fun getRecentQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
@@ -49,13 +68,11 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
     }
 
     //Api
-    val recentsLiveData = MutableLiveData<NetworkRequest<ResponseRecipes>>()
     fun getRecents(queries: Map<String, String>) = viewModelScope.launch {
         recentsLiveData.value = NetworkRequest.Loading()
         val response = repository.remote.getRecipes(queries)
         recentsLiveData.value = recentNetworkResponse(response)
     }
-
 
     private fun recentNetworkResponse(response: Response<ResponseRecipes>): NetworkRequest<ResponseRecipes> {
         return when {
