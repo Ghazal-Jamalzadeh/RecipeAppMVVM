@@ -52,8 +52,6 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         savePopular(entity)
     }
 
-
-
     //---Recent---//
     val recentsLiveData = MutableLiveData<NetworkRequest<ResponseRecipes>>()
     //Queries
@@ -68,10 +66,15 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
     }
 
     //Api
-    fun getRecents(queries: Map<String, String>) = viewModelScope.launch {
+    fun callRecent(queries: Map<String, String>) = viewModelScope.launch {
         recentsLiveData.value = NetworkRequest.Loading()
         val response = repository.remote.getRecipes(queries)
         recentsLiveData.value = recentNetworkResponse(response)
+        //Cache
+        val cache : ResponseRecipes? = recentsLiveData.value?.data
+        if (cache != null){
+            offlineRecent(cache)
+        }
     }
 
     private fun recentNetworkResponse(response: Response<ResponseRecipes>): NetworkRequest<ResponseRecipes> {
@@ -86,4 +89,17 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
             else -> NetworkRequest.Error(response.message())
         }
     }
+
+    //Local
+    private fun saveRecent(entity: RecipeEntity) = viewModelScope.launch(Dispatchers.IO) {
+        repository.local.saveRecipes(entity)
+    }
+
+    val readFromDbLiveData = repository.local.loadRecipes().asLiveData()
+
+    private fun offlineRecent(response: ResponseRecipes) {
+        val entity = RecipeEntity(1, response)
+        saveRecent(entity)
+    }
+
 }
