@@ -3,6 +3,9 @@ package com.jmzd.ghazal.recipeappmvvm.utils
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 
@@ -30,4 +33,13 @@ fun Int.minToHour(): String {
     val minutes: Int = this % 60
     time = if (hours > 0) "${hours}h:${minutes}min" else "${minutes}min"
     return time
+}
+
+fun <T> LiveData<T>.onceObserve(owner: LifecycleOwner, observe: Observer<T>) {
+    observe(owner, object : Observer<T> {
+        override fun onChanged(t: T) {
+            removeObserver(this)
+            observe.onChanged(t)
+        }
+    })
 }

@@ -19,10 +19,7 @@ import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentRecipeBinding
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes.*
 import com.jmzd.ghazal.recipeappmvvm.models.register.RegisterStoredModel
-import com.jmzd.ghazal.recipeappmvvm.utils.Constants
-import com.jmzd.ghazal.recipeappmvvm.utils.NetworkRequest
-import com.jmzd.ghazal.recipeappmvvm.utils.setupRecyclerview
-import com.jmzd.ghazal.recipeappmvvm.utils.showSnackBar
+import com.jmzd.ghazal.recipeappmvvm.utils.*
 import com.jmzd.ghazal.recipeappmvvm.viewmodel.RecipeViewModel
 import com.jmzd.ghazal.recipeappmvvm.viewmodel.RegisterViewModel
 import com.todkars.shimmer.ShimmerRecyclerView
@@ -99,7 +96,7 @@ class RecipeFragment : Fragment() {
     //---observers---//
     private fun loadPopularData() {
         binding.apply {
-            viewModel.popularLiveData.observe(viewLifecycleOwner) { response : NetworkRequest<ResponseRecipes>->
+            viewModel.popularLiveData.onceObserve(viewLifecycleOwner) { response : NetworkRequest<ResponseRecipes>->
                 Log.d(TAG, "load data  from api ")
                 when (response) {
                     is NetworkRequest.Loading -> {
