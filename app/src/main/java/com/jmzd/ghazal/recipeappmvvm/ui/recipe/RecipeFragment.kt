@@ -2,6 +2,7 @@ package com.jmzd.ghazal.recipeappmvvm.ui.recipe
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,10 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.adapter.PopularAdapter
 import com.jmzd.ghazal.recipeappmvvm.adapter.RecentAdapter
+import com.jmzd.ghazal.recipeappmvvm.data.database.RecipeEntity
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentRecipeBinding
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
+import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes.*
 import com.jmzd.ghazal.recipeappmvvm.models.register.RegisterStoredModel
 import com.jmzd.ghazal.recipeappmvvm.utils.Constants
 import com.jmzd.ghazal.recipeappmvvm.utils.NetworkRequest
@@ -31,6 +34,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RecipeFragment : Fragment() {
 
+    private val TAG = "RecipeFragment"
     //Binding
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
@@ -62,9 +66,9 @@ class RecipeFragment : Fragment() {
         lifecycleScope.launch {
             showUsername()
         }
-        //Call data
-        viewModel.callPopularApi(viewModel.getPopularQueries())
-        viewModel.getRecents(viewModel.getRecentQueries())
+        //get data
+        getPopularData()
+//        viewModel.getRecents(viewModel.getRecentQueries())
         //load data
         loadPopularData()
         loadRecentData()
@@ -75,20 +79,28 @@ class RecipeFragment : Fragment() {
         _binding = null
     }
 
-    @SuppressLint("SetTextI18n")
-    suspend fun showUsername() {
-        registerViewModel.readData.collect { storedData: RegisterStoredModel ->
-            binding.usernameTxt.text = "${getString(R.string.hello)}, ${storedData.username} ${getEmojiByUnicode()}"
+    //---Cache---//
+    private fun getPopularData() {
+        initPopularRecycler()
+        viewModel.popularFromDbLiveData.observe(viewLifecycleOwner) { database : List<RecipeEntity> ->
+            if (database.isNotEmpty()) {
+                database[0].response.results?.let { result : List<Result> ->
+                    setupLoading(false, binding.popularList)
+                    fillPopularAdapter(result.toMutableList())
+                }
+                Log.d(TAG, "load data from db : ")
+            } else {
+                viewModel.callPopularApi(viewModel.getPopularQueries())
+                Log.d(TAG, "call api ")
+            }
         }
     }
 
-    private fun getEmojiByUnicode(): String {
-        return String(Character.toChars(0x1f44b))
-    }
-
+    //---observers---//
     private fun loadPopularData() {
         binding.apply {
             viewModel.popularLiveData.observe(viewLifecycleOwner) { response : NetworkRequest<ResponseRecipes>->
+                Log.d(TAG, "load data  from api ")
                 when (response) {
                     is NetworkRequest.Loading -> {
                         setupLoading(true, popularList)
@@ -98,7 +110,6 @@ class RecipeFragment : Fragment() {
                         response.data?.let { data : ResponseRecipes ->
                             if (data.results!!.isNotEmpty()) {
                                 fillPopularAdapter(data.results.toMutableList())
-                                autoScrollPopular(data.results)
                             }
                         }
                     }
@@ -110,8 +121,6 @@ class RecipeFragment : Fragment() {
             }
         }
     }
-
-
 
     private fun loadRecentData() {
         binding.apply {
@@ -138,16 +147,45 @@ class RecipeFragment : Fragment() {
         }
     }
 
+    //---UI---//
     private fun setupLoading(isShownLoading: Boolean, shimmer: ShimmerRecyclerView) {
         shimmer.apply {
             if (isShownLoading) showShimmer() else hideShimmer()
         }
     }
 
-    private fun fillPopularAdapter(result: MutableList<ResponseRecipes.Result>) {
+    @SuppressLint("SetTextI18n")
+    suspend fun showUsername() {
+        registerViewModel.readData.collect { storedData: RegisterStoredModel ->
+            binding.usernameTxt.text = "${getString(R.string.hello)}, ${storedData.username} ${getEmojiByUnicode()}"
+        }
+    }
+
+    private fun getEmojiByUnicode(): String {
+        return String(Character.toChars(0x1f44b))
+    }
+
+    private fun autoScrollPopular(list: List<Result>) {
+        /* زمانی که صفحه ساخته شد این بلاک اجرا میشه*/
+        lifecycleScope.launchWhenCreated {
+            /* کدهای داخل این بلاک این تعداد تکرار میشه*/
+            repeat(Constants.REPEAT_TIME) {
+                /* هر ۵ ثانیه این کد اجرا میشه*/
+                delay(Constants.DELAY_TIME)
+                if (autoScrollIndex < list.size) {
+                    autoScrollIndex += 1
+                } else {
+                    autoScrollIndex = 0
+                }
+                binding.popularList.smoothScrollToPosition(autoScrollIndex)
+            }
+        }
+    }
+
+    //---init recyclers---//
+    private fun fillPopularAdapter(result: MutableList<Result>) {
         popularAdapter.setData(result)
-        initPopularRecycler()
-//        autoScrollPopular(result)
+        autoScrollPopular(result)
     }
 
     private fun initPopularRecycler() {
@@ -172,23 +210,6 @@ class RecipeFragment : Fragment() {
         //Click
         recentAdapter.setOnItemClickListener {
          /*   gotoDetailPage(it)*/
-        }
-    }
-
-    private fun autoScrollPopular(list: List<ResponseRecipes.Result>) {
-        /* زمانی که صفحه ساخته شد این بلاک اجرا میشه*/
-        lifecycleScope.launchWhenCreated {
-            /* کدهای داخل این بلاک این تعداد تکرار میشه*/
-            repeat(Constants.REPEAT_TIME) {
-                /* هر ۵ ثانیه این کد اجرا میشه*/
-                delay(Constants.DELAY_TIME)
-                if (autoScrollIndex < list.size) {
-                    autoScrollIndex += 1
-                } else {
-                    autoScrollIndex = 0
-                }
-                binding.popularList.smoothScrollToPosition(autoScrollIndex)
-            }
         }
     }
 
