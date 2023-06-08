@@ -66,7 +66,7 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
     }
 
     //Api
-    fun callRecent(queries: Map<String, String>) = viewModelScope.launch {
+    fun callRecentApi(queries: Map<String, String>) = viewModelScope.launch {
         recentsLiveData.value = NetworkRequest.Loading()
         val response = repository.remote.getRecipes(queries)
         recentsLiveData.value = recentNetworkResponse(response)

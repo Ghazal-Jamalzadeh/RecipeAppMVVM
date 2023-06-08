@@ -64,11 +64,11 @@ class RecipeFragment : Fragment() {
             showUsername()
         }
         //get data
-        getPopularData()
-//        viewModel.getRecents(viewModel.getRecentQueries())
-        //load data
         loadPopularData()
         loadRecentData()
+        //load data
+        observePopularData()
+        observeRecentData()
     }
 
     override fun onDestroy() {
@@ -77,7 +77,7 @@ class RecipeFragment : Fragment() {
     }
 
     //---Cache---//
-    private fun getPopularData() {
+    private fun loadPopularData() {
         initPopularRecycler()
         viewModel.popularFromDbLiveData.observe(viewLifecycleOwner) { database : List<RecipeEntity> ->
             if (database.isNotEmpty()) {
@@ -93,8 +93,22 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    //---observers---//
-    private fun loadPopularData() {
+    private fun loadRecentData() {
+        initRecentRecycler()
+        viewModel.readFromDbLiveData.onceObserve(viewLifecycleOwner) { database ->
+            if (database.isNotEmpty() && database.size > 1) {
+                database[1].response.results?.let { result ->
+                    setupLoading(false, binding.recipesList)
+                    recentAdapter.setData(result)
+                }
+            } else {
+                viewModel.callRecentApi(viewModel.getRecentQueries())
+            }
+        }
+    }
+
+    //---API observers---//
+    private fun observePopularData() {
         binding.apply {
             viewModel.popularLiveData.onceObserve(viewLifecycleOwner) { response : NetworkRequest<ResponseRecipes>->
                 Log.d(TAG, "load data  from api ")
@@ -119,7 +133,7 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    private fun loadRecentData() {
+    private fun observeRecentData() {
         binding.apply {
             viewModel.recentsLiveData.observe(viewLifecycleOwner) { response : NetworkRequest<ResponseRecipes> ->
                 when (response) {
@@ -131,7 +145,6 @@ class RecipeFragment : Fragment() {
                         response.data?.let { data : ResponseRecipes->
                             if (data.results!!.isNotEmpty()) {
                                 recentAdapter.setData(data.results)
-                                initRecentRecycler()
                             }
                         }
                     }
