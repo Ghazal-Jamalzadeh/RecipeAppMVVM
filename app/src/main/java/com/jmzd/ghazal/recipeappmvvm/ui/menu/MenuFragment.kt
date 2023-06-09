@@ -1,7 +1,6 @@
 package com.jmzd.ghazal.recipeappmvvm.ui.menu
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +46,7 @@ class MenuFragment : BottomSheetDialogFragment() {
         //init views
         binding.apply {
             //Generate chips
-            setupChip(viewModel.getMalsList(), mealChipGroup)
+            setupChip(viewModel.getMealsList(), mealChipGroup)
             setupChip(viewModel.getDietsList(), dietChipGroup)
 
         }
