@@ -1009,3 +1009,7 @@ Bottom Sheet dialog fragment using navigation component-------------------------
 یک اکشن گلوبال هم براش میسازیم
 ولی کلا انیمیشن هاش رو برمیداریم چون خودش داره
 چون حالت فید رو  نمیخوایم
+
+خیلی راحت با خط کد زیر باز میشه
+navHost.navController.navigate(R.id.action_to_menu)
+

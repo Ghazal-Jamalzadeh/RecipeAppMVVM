@@ -35,6 +35,11 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        //Menu
+        binding.mainFabMenu.setOnClickListener {
+            navHost.navController.navigate(R.id.action_to_menu)
+        }
+
     }
 
     override fun onNavigateUp(): Boolean {
