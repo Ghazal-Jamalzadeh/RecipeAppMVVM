@@ -1167,3 +1167,16 @@ popUpToInclusive
 توی تموک میومدم توی بک زدن دیتا پاس میدادم به جای نویگیشن جدید. هر دو روش اوکیه
 
 ولی روش بالا روش خیلی خیلی خوب توی مدیریت بک زدن ها هست بدون نیاز به کد.....
+
+ارور مربوط به دیتا استور----------------------------------------------------------------------------
+E/AndroidRuntime: FATAL EXCEPTION: main
+    Process: com.jmzd.ghazal.recipeappmvvm, PID: 32028
+    java.lang.IllegalStateException: There are multiple DataStores active for the same file: /data/user/0/com.jmzd.ghazal.recipeappmvvm/files/datastore/register_user_info.preferences_pb. You should either maintain your DataStore as a singleton or confirm that there is no two DataStore's active on the same file (by confirming that the scope is cancelled).
+
+فعلا با سینگلتون کردن اسکوپ ریپازیتوری که با این دیتا استور کار میکرد شاید ارور حل شد
+قبلا اسکوپش اکتیویتی ریتیند اسکوپ بود که با رفتن اپ به بک گراند گاهی کرش میکرد اپ
+چون توی کار با دیتا استور احتمالا داریم با کانتکس اپلیکیشن که از هیلت گرفتیم کار میکنیم
+واسه همین یا باید کانتکسی که بهش میدیم کانتکس اکیتیویتی  باشه
+یا باید کروتینش هندل شه
+یا کلاس مربوطه هم سینگل تون شه
+در غیر این صورت مموری لیک میتونه رخ بده....

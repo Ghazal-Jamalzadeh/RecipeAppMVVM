@@ -14,8 +14,9 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ActivityRetainedScoped
+@Singleton
 class MenuRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
     private object menuStoredKeys {
