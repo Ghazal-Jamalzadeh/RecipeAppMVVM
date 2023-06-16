@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
@@ -13,6 +14,8 @@ import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentMenuBinding
+import com.jmzd.ghazal.recipeappmvvm.models.menu.MenuStoredModel
+import com.jmzd.ghazal.recipeappmvvm.utils.onceObserve
 import com.jmzd.ghazal.recipeappmvvm.viewmodel.MenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,10 +32,10 @@ class MenuFragment : BottomSheetDialogFragment() {
     //other
     private var chipCounter = 1
     //selected values
-    private var selectedChipMealTitle = ""
-    private var selectedChipMealId = 0
-    private var selectedCipDietTitle = ""
-    private var selectedCipDietId = 0
+    private var selectedMealTitle = ""
+    private var selectedMealId = 0
+    private var selectedDietTitle = ""
+    private var selectedDietId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +57,20 @@ class MenuFragment : BottomSheetDialogFragment() {
             //Generate chips
             setupChip(viewModel.getMealsList(), mealChipGroup)
             setupChip(viewModel.getDietsList(), dietChipGroup)
+            //Read from menu stored data
+            viewModel.menuStoredItems.asLiveData().onceObserve(viewLifecycleOwner) {storedData : MenuStoredModel ->
+                selectedMealTitle = storedData.meal
+                selectedDietTitle = storedData.diet
+                updateChip(storedData.mealId, mealChipGroup)
+                updateChip(storedData.dietId, dietChipGroup)
+            }
             //Meal chips - click
             mealChipGroup.setOnCheckedStateChangeListener { group : ChipGroup, checkedIds : MutableList<Int>->
                 var chip: Chip
                 checkedIds.forEach { checkedId : Int ->
                     chip = group.findViewById(checkedId)
-                    selectedChipMealTitle = chip.text.toString().lowercase()
-                    selectedChipMealId = checkedId
+                    selectedMealTitle = chip.text.toString().lowercase()
+                    selectedMealId = checkedId
                 }
             }
             //Diet chips - click
@@ -68,17 +78,17 @@ class MenuFragment : BottomSheetDialogFragment() {
                 var chip: Chip
                 checkedIds.forEach { checkedId : Int ->
                     chip = group.findViewById(checkedId)
-                    selectedCipDietTitle = chip.text.toString().lowercase()
-                    selectedCipDietId = checkedId
+                    selectedDietTitle = chip.text.toString().lowercase()
+                    selectedDietId = checkedId
                 }
             }
             //Submit
             submitBtn.setOnClickListener {
                 viewModel.saveToStore(
-                    meal = selectedChipMealTitle ,
-                    mealId = selectedChipMealId ,
-                    diet = selectedCipDietTitle ,
-                    dietId = selectedCipDietId
+                    meal = selectedMealTitle ,
+                    mealId = selectedMealId ,
+                    diet = selectedDietTitle ,
+                    dietId = selectedDietId
                 )
                 findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToRecipeFragment().setIsUpdated(true))
             }
@@ -101,6 +111,12 @@ class MenuFragment : BottomSheetDialogFragment() {
             chip.id = chipCounter++
             chip.text = it
             view.addView(chip)
+        }
+    }
+
+    private fun updateChip(id: Int, view: ChipGroup) {
+        if (id != 0) {
+            view.findViewById<Chip>(id).isChecked = true
         }
     }
 
