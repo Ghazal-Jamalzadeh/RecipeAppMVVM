@@ -1,5 +1,6 @@
 package com.jmzd.ghazal.recipeappmvvm.viewmodel
 
+import androidx.datastore.dataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jmzd.ghazal.recipeappmvvm.data.repository.MenuRepository
@@ -30,5 +31,4 @@ class MenuViewModel @Inject constructor(private val repository: MenuRepository) 
     fun getDietsList(): MutableList<String> {
         return mutableListOf("Gluten Free", "Ketogenic", "Vegetarian", "Vegan", "Pescetarian", "Paleo")
     }
-
 }
