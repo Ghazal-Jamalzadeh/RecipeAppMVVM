@@ -19,7 +19,12 @@
         android:id="@+id/recipeFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.recipe.RecipeFragment"
         android:label="fragment_recipe"
-        tools:layout="@layout/fragment_recipe" />
+        tools:layout="@layout/fragment_recipe" >
+        <argument
+            android:name="isUpdated"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.favourites.FavouritesFragment"
@@ -39,7 +44,11 @@
         android:id="@+id/menuFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.menu.MenuFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </dialog>
     <action
         android:id="@+id/action_to_registerFragment"
         app:destination="@id/registerFragment"

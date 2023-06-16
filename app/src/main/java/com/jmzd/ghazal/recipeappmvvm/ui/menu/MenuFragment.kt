@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -27,6 +28,11 @@ class MenuFragment : BottomSheetDialogFragment() {
 
     //other
     private var chipCounter = 1
+    //selected values
+    private var selectedChipMealTitle = ""
+    private var selectedChipMealId = 0
+    private var selectedCipDietTitle = ""
+    private var selectedCipDietId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,34 @@ class MenuFragment : BottomSheetDialogFragment() {
             //Generate chips
             setupChip(viewModel.getMealsList(), mealChipGroup)
             setupChip(viewModel.getDietsList(), dietChipGroup)
+            //Meal chips - click
+            mealChipGroup.setOnCheckedStateChangeListener { group : ChipGroup, checkedIds : MutableList<Int>->
+                var chip: Chip
+                checkedIds.forEach { checkedId : Int ->
+                    chip = group.findViewById(checkedId)
+                    selectedChipMealTitle = chip.text.toString().lowercase()
+                    selectedChipMealId = checkedId
+                }
+            }
+            //Diet chips - click
+            dietChipGroup.setOnCheckedStateChangeListener { group : ChipGroup, checkedIds : MutableList<Int> ->
+                var chip: Chip
+                checkedIds.forEach { checkedId : Int ->
+                    chip = group.findViewById(checkedId)
+                    selectedCipDietTitle = chip.text.toString().lowercase()
+                    selectedCipDietId = checkedId
+                }
+            }
+            //Submit
+            submitBtn.setOnClickListener {
+                viewModel.saveToStore(
+                    meal = selectedChipMealTitle ,
+                    mealId = selectedChipMealId ,
+                    diet = selectedCipDietTitle ,
+                    dietId = selectedCipDietId
+                )
+                findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToRecipeFragment().setIsUpdated(true))
+            }
 
         }
     }
