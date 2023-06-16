@@ -3,7 +3,9 @@ package com.jmzd.ghazal.recipeappmvvm.viewmodel
 import android.telephony.SignalStrength
 import androidx.lifecycle.*
 import com.jmzd.ghazal.recipeappmvvm.data.database.RecipeEntity
+import com.jmzd.ghazal.recipeappmvvm.data.repository.MenuRepository
 import com.jmzd.ghazal.recipeappmvvm.data.repository.RecipeRepository
+import com.jmzd.ghazal.recipeappmvvm.models.menu.MenuStoredModel
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.utils.Constants
 import com.jmzd.ghazal.recipeappmvvm.utils.NetworkRequest
@@ -11,15 +13,19 @@ import com.jmzd.ghazal.recipeappmvvm.utils.NetworkResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeViewModel @Inject constructor(private val repository: RecipeRepository) : ViewModel(){
+class RecipeViewModel @Inject constructor(
+    private val repository: RecipeRepository, private val menuRepository: MenuRepository,
+) : ViewModel() {
 
     //---popular---//
     val popularLiveData = MutableLiveData<NetworkRequest<ResponseRecipes>>()
+
     //Queries
     fun getPopularQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
@@ -29,23 +35,26 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         queries[Constants.ADD_RECIPE_INFORMATION] = Constants.TRUE
         return queries
     }
+
     //API
-    fun callPopularApi(queries : Map<String , String>) = viewModelScope.launch {
-      popularLiveData.value = NetworkRequest.Loading()
-        val response : Response<ResponseRecipes> = repository.remote.getRecipes(queries)
+    fun callPopularApi(queries: Map<String, String>) = viewModelScope.launch {
+        popularLiveData.value = NetworkRequest.Loading()
+        val response: Response<ResponseRecipes> = repository.remote.getRecipes(queries)
         popularLiveData.value = NetworkResponse(response).generalNetworkResponse()
         //Cache
-        val cache : ResponseRecipes? = popularLiveData.value?.data
-        if (cache != null){
-        offlinePopular(cache)
+        val cache: ResponseRecipes? = popularLiveData.value?.data
+        if (cache != null) {
+            offlinePopular(cache)
         }
     }
+
     //Local
-    private fun savePopular(entity: RecipeEntity) : Job = viewModelScope.launch(Dispatchers.IO) {
+    private fun savePopular(entity: RecipeEntity): Job = viewModelScope.launch(Dispatchers.IO) {
         repository.local.saveRecipes(entity)
     }
 
-    val popularFromDbLiveData : LiveData<List<RecipeEntity>> = repository.local.loadRecipes().asLiveData()
+    val popularFromDbLiveData: LiveData<List<RecipeEntity>> =
+        repository.local.loadRecipes().asLiveData()
 
     private fun offlinePopular(response: ResponseRecipes) {
         val entity = RecipeEntity(0, response)
@@ -54,12 +63,24 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
 
     //---Recent---//
     val recentsLiveData = MutableLiveData<NetworkRequest<ResponseRecipes>>()
+
     //Queries
+    private var mealType = Constants.MAIN_COURSE
+    private var dietType = Constants.GLUTEN_FREE
+
     fun getRecentQueries(): HashMap<String, String> {
+
+        viewModelScope.launch {
+            menuRepository.menuDataFlow.collect { stoedData: MenuStoredModel ->
+                mealType = stoedData.meal
+                dietType = stoedData.diet
+            }
+        }
+
         val queries: HashMap<String, String> = HashMap()
         queries[Constants.API_KEY] = Constants.MY_API_KEY
-        queries[Constants.TYPE] = Constants.MAIN_COURSE
-        queries[Constants.DIET] = Constants.GLUTEN_FREE
+        queries[Constants.TYPE] = mealType
+        queries[Constants.DIET] = dietType
         queries[Constants.NUMBER] = Constants.FULL_COUNT.toString()
         queries[Constants.ADD_RECIPE_INFORMATION] = Constants.TRUE
         return queries
@@ -71,8 +92,8 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         val response = repository.remote.getRecipes(queries)
         recentsLiveData.value = recentNetworkResponse(response)
         //Cache
-        val cache : ResponseRecipes? = recentsLiveData.value?.data
-        if (cache != null){
+        val cache: ResponseRecipes? = recentsLiveData.value?.data
+        if (cache != null) {
             offlineRecent(cache)
         }
     }
