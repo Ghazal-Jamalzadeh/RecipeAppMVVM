@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.jmzd.ghazal.recipeappmvvm.R
@@ -36,15 +37,16 @@ class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var popularAdapter: PopularAdapter
-
-    @Inject
-    lateinit var recentAdapter: RecentAdapter
+    //adapters
+    @Inject lateinit var popularAdapter: PopularAdapter
+    @Inject lateinit var recentAdapter: RecentAdapter
 
     //viewModel
     private val registerViewModel: RegisterViewModel by viewModels()
     private val viewModel: RecipeViewModel by viewModels()
+
+    //args
+    private val args : RecipeFragmentArgs by navArgs()
 
     //other
     private var autoScrollIndex = 0
@@ -96,7 +98,7 @@ class RecipeFragment : Fragment() {
     private fun loadRecentData() {
         initRecentRecycler()
         viewModel.readFromDbLiveData.onceObserve(viewLifecycleOwner) { database ->
-            if (database.isNotEmpty() && database.size > 1) {
+            if (database.isNotEmpty() && database.size > 1 && !args.isUpdated) {
                 database[1].response.results?.let { result ->
                     setupLoading(false, binding.recipesList)
                     recentAdapter.setData(result)
