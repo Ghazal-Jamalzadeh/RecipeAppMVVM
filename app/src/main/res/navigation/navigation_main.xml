@@ -14,16 +14,16 @@
         android:id="@+id/splashFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.splash.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash"/>
+        tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/recipeFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.recipe.RecipeFragment"
         android:label="fragment_recipe"
-        tools:layout="@layout/fragment_recipe" >
+        tools:layout="@layout/fragment_recipe">
         <argument
             android:name="isUpdated"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
@@ -40,11 +40,16 @@
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.lucky.LuckyFragment"
         android:label="fragment_lucky"
         tools:layout="@layout/fragment_lucky" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.jmzd.ghazal.recipeappmvvm.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
     <dialog
         android:id="@+id/menuFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.menu.MenuFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_recipeFragment"
             app:destination="@id/recipeFragment"
@@ -69,5 +74,13 @@
     <action
         android:id="@+id/action_to_menu"
         app:destination="@id/menuFragment" />
+
+    <action
+        android:id="@+id/action_to_detailFragment"
+        app:destination="@id/detailFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
 </navigation>
