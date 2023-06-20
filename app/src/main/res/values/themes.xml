@@ -38,4 +38,24 @@
     <style name="DarkChip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/item_chip_background</item>
     </style>
+
+    <!--Progressbar-->
+    <style name="DarkProgressbar">
+        <item name="colorAccent">@color/jacarta</item>
+    </style>
+
+    <!--Icon text-->
+    <style name="IconTextView">
+        <item name="android:drawablePadding">@dimen/_3mdp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="drawableTint">@color/gray</item>
+        <item name="android:textSize">@dimen/_8font_mdp</item>
+    </style>
+
+    <!--Shape imageview-->
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_8mdp</item>
+    </style>
 </resources>
