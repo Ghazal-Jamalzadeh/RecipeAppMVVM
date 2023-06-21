@@ -44,7 +44,11 @@
         android:id="@+id/detailFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="recipeId"
+            app:argType="integer" />
+    </fragment>
     <dialog
         android:id="@+id/menuFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.menu.MenuFragment"

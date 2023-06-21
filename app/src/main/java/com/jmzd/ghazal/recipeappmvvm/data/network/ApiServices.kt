@@ -1,6 +1,7 @@
 package com.jmzd.ghazal.recipeappmvvm.data.network
 
 
+import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseDetail
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.models.register.BodyRegister
 import com.jmzd.ghazal.recipeappmvvm.models.register.ResponseRegister
@@ -14,10 +15,10 @@ interface ApiServices {
 
     @GET("recipes/complexSearch")
     suspend fun getRecipes(@QueryMap queries: Map<String, String>): Response<ResponseRecipes>
-//
-//    @GET("recipes/{id}/information")
-//    suspend fun getDetail(@Path("id") id: Int, @Query(API_KEY) apiKey: String): Response<ResponseDetail>
-//
+
+    @GET("recipes/{id}/information")
+    suspend fun getDetail(@Path("id") recipeId: Int, @Query(API_KEY) apiKey: String): Response<ResponseDetail>
+
 //    @GET("recipes/{id}/similar")
 //    suspend fun getSimilarRecipes(@Path("id") id: Int, @Query(API_KEY) apiKey: String): Response<ResponseSimilar>
 //

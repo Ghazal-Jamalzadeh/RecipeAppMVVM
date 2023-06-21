@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -33,20 +34,23 @@ import javax.inject.Inject
 class RecipeFragment : Fragment() {
 
     private val TAG = "RecipeFragment"
+
     //Binding
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
 
     //adapters
-    @Inject lateinit var popularAdapter: PopularAdapter
-    @Inject lateinit var recentAdapter: RecentAdapter
+    @Inject
+    lateinit var popularAdapter: PopularAdapter
+    @Inject
+    lateinit var recentAdapter: RecentAdapter
 
     //viewModel
     private val registerViewModel: RegisterViewModel by viewModels()
     private val viewModel: RecipeViewModel by viewModels()
 
     //args
-    private val args : RecipeFragmentArgs by navArgs()
+    private val args: RecipeFragmentArgs by navArgs()
 
     //other
     private var autoScrollIndex = 0
@@ -55,7 +59,7 @@ class RecipeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentRecipeBinding.inflate(inflater , container , false)
+        _binding = FragmentRecipeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -81,16 +85,15 @@ class RecipeFragment : Fragment() {
     //---Cache---//
     private fun loadPopularData() {
         initPopularRecycler()
-        viewModel.popularFromDbLiveData.observe(viewLifecycleOwner) { database : List<RecipeEntity> ->
+        viewModel.popularFromDbLiveData.observe(viewLifecycleOwner) { database: List<RecipeEntity> ->
             if (database.isNotEmpty()) {
-                database[0].response.results?.let { result : List<Result> ->
+                database[0].response.results?.let { result: List<Result> ->
                     setupLoading(false, binding.popularList)
                     fillPopularAdapter(result.toMutableList())
                 }
                 Log.d(TAG, "load data from db : ")
             } else {
                 viewModel.callPopularApi(viewModel.getPopularQueries())
-                Log.d(TAG, "call api ")
             }
         }
     }
@@ -112,7 +115,7 @@ class RecipeFragment : Fragment() {
     //---API observers---//
     private fun observePopularData() {
         binding.apply {
-            viewModel.popularLiveData.onceObserve(viewLifecycleOwner) { response : NetworkRequest<ResponseRecipes>->
+            viewModel.popularLiveData.onceObserve(viewLifecycleOwner) { response: NetworkRequest<ResponseRecipes> ->
                 Log.d(TAG, "load data  from api ")
                 when (response) {
                     is NetworkRequest.Loading -> {
@@ -120,7 +123,7 @@ class RecipeFragment : Fragment() {
                     }
                     is NetworkRequest.Success -> {
                         setupLoading(false, popularList)
-                        response.data?.let { data : ResponseRecipes ->
+                        response.data?.let { data: ResponseRecipes ->
                             if (data.results!!.isNotEmpty()) {
                                 fillPopularAdapter(data.results.toMutableList())
                             }
@@ -137,14 +140,14 @@ class RecipeFragment : Fragment() {
 
     private fun observeRecentData() {
         binding.apply {
-            viewModel.recentsLiveData.observe(viewLifecycleOwner) { response : NetworkRequest<ResponseRecipes> ->
+            viewModel.recentsLiveData.observe(viewLifecycleOwner) { response: NetworkRequest<ResponseRecipes> ->
                 when (response) {
                     is NetworkRequest.Loading -> {
                         setupLoading(true, recipesList)
                     }
                     is NetworkRequest.Success -> {
                         setupLoading(false, recipesList)
-                        response.data?.let { data : ResponseRecipes->
+                        response.data?.let { data: ResponseRecipes ->
                             if (data.results!!.isNotEmpty()) {
                                 recentAdapter.setData(data.results)
                             }
@@ -169,7 +172,8 @@ class RecipeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     suspend fun showUsername() {
         registerViewModel.readData.collect { storedData: RegisterStoredModel ->
-            binding.usernameTxt.text = "${getString(R.string.hello)}, ${storedData.username} ${getEmojiByUnicode()}"
+            binding.usernameTxt.text =
+                "${getString(R.string.hello)}, ${storedData.username} ${getEmojiByUnicode()}"
         }
     }
 
@@ -202,15 +206,17 @@ class RecipeFragment : Fragment() {
 
     private fun initPopularRecycler() {
         binding.popularList.setupRecyclerview(
-           myLayoutManager =  LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
+            myLayoutManager = LinearLayoutManager(requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false),
             myAdapter = popularAdapter
         )
         //Snap
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.popularList)
         //Click
-        popularAdapter.setOnItemClickListener { id : Int ->
-            //go to detail page
+        popularAdapter.setOnItemClickListener { id: Int ->
+            goToDetailPage(recipeId = id)
         }
     }
 
@@ -220,9 +226,14 @@ class RecipeFragment : Fragment() {
             recentAdapter
         )
         //Click
-        recentAdapter.setOnItemClickListener {
-         /*   gotoDetailPage(it)*/
+        recentAdapter.setOnItemClickListener { id: Int ->
+            goToDetailPage(recipeId = id)
         }
+    }
+
+    private fun goToDetailPage(recipeId: Int) {
+        val action = RecipeFragmentDirections.actionToDetailFragment(recipeId)
+        findNavController().navigate(action)
     }
 
 }
