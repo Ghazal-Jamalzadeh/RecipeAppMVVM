@@ -39,6 +39,12 @@
         <item name="chipBackgroundColor">@color/item_chip_background</item>
     </style>
 
+    <style name="DietsChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/whiteSmoke</item>
+        <item name="android:clickable">false</item>
+        <item name="android:checkable">false</item>
+    </style>
+
     <!--Progressbar-->
     <style name="DarkProgressbar">
         <item name="colorAccent">@color/jacarta</item>

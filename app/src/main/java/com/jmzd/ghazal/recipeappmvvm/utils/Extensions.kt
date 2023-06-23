@@ -3,6 +3,7 @@ package com.jmzd.ghazal.recipeappmvvm.utils
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -42,4 +43,14 @@ fun <T> LiveData<T>.onceObserve(owner: LifecycleOwner, observe: Observer<T>) {
             observe.onChanged(t)
         }
     })
+}
+
+fun View.isVisible(isShownLoading: Boolean, container: View) {
+    if (isShownLoading) {
+        this.isVisible = true
+        container.isVisible = false
+    } else {
+        this.isVisible = false
+        container.isVisible = true
+    }
 }

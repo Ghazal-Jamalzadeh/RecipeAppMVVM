@@ -400,3 +400,396 @@ The base path for image URLs is https://spoonacular.com/recipeImages/. Once you 
 556x370
 636x393
 A complete image path might look like this: https://spoonacular.com/recipeImages/579247-556x370.jpg
+
+Details---------------------------------------------------------------------------------------------
+https://spoonacular.com/food-api/docs#Get-Recipe-Information
+
+https://api.spoonacular.com/recipes/715449/information?apiKey=5ace23b237e0430590fc4f8f8f0cfc66
+
+{
+  "vegetarian": false,
+  "vegan": false,
+  "glutenFree": false,
+  "dairyFree": false,
+  "veryHealthy": false,
+  "cheap": false,
+  "veryPopular": true,
+  "sustainable": false,
+  "lowFodmap": false,
+  "weightWatcherSmartPoints": 32,
+  "gaps": "no",
+  "preparationMinutes": 20,
+  "cookingMinutes": 20,
+  "aggregateLikes": 32767,
+  "healthScore": 20,
+  "creditsText": "Jen West",
+  "sourceName": "Pink When",
+  "pricePerServing": 633.3,
+  "extendedIngredients": [
+    {
+      "id": 10018166,
+      "aisle": "Sweet Snacks",
+      "image": "oreos.png",
+      "consistency": "SOLID",
+      "name": "oreo cookies 3 cups",
+      "nameClean": "oreo cookies",
+      "original": "36 OREO cookies finely crushed about 3 cups",
+      "originalName": "OREO cookies finely crushed about 3 cups",
+      "amount": 36.0,
+      "unit": "",
+      "meta": [
+        "crushed",
+        "finely"
+      ],
+      "measures": {
+        "us": {
+          "amount": 36.0,
+          "unitShort": "",
+          "unitLong": ""
+        },
+        "metric": {
+          "amount": 36.0,
+          "unitShort": "",
+          "unitLong": ""
+        }
+      }
+    },
+    {
+      "id": 1017,
+      "aisle": "Cheese",
+      "image": "cream-cheese.jpg",
+      "consistency": "SOLID",
+      "name": "cream cheese",
+      "nameClean": "cream cheese",
+      "original": "1 package 8oz. cream cheese (softened)",
+      "originalName": "8oz. cream cheese (softened)",
+      "amount": 1.0,
+      "unit": "package",
+      "meta": [
+        "softened",
+        "()"
+      ],
+      "measures": {
+        "us": {
+          "amount": 1.0,
+          "unitShort": "pkg",
+          "unitLong": "package"
+        },
+        "metric": {
+          "amount": 1.0,
+          "unitShort": "pkg",
+          "unitLong": "package"
+        }
+      }
+    },
+    {
+      "id": 19078,
+      "aisle": "Baking",
+      "image": "baking-chocolate.jpg",
+      "consistency": "SOLID",
+      "name": "semi baking chocolate",
+      "nameClean": "unsweetened baking chocolate",
+      "original": "4 4oz. semi sweet baking chocolate (melted)",
+      "originalName": "semi sweet baking chocolate (melted)",
+      "amount": 16.0,
+      "unit": "oz",
+      "meta": [
+        "sweet",
+        "melted",
+        "()"
+      ],
+      "measures": {
+        "us": {
+          "amount": 16.0,
+          "unitShort": "oz",
+          "unitLong": "ounces"
+        },
+        "metric": {
+          "amount": 453.592,
+          "unitShort": "g",
+          "unitLong": "grams"
+        }
+      }
+    },
+    {
+      "id": 93637,
+      "aisle": "Sweet Snacks",
+      "image": "candy-corn.jpg",
+      "consistency": "SOLID",
+      "name": "candy corn",
+      "nameClean": "candy corn",
+      "original": "***Candy Corn",
+      "originalName": "Candy Corn",
+      "amount": 48.0,
+      "unit": "servings",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 48.0,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        },
+        "metric": {
+          "amount": 48.0,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        }
+      }
+    },
+    {
+      "id": 10023232,
+      "aisle": "Meat",
+      "image": "ribeye-raw.jpg",
+      "consistency": "SOLID",
+      "name": "candy eyes",
+      "nameClean": "ribeye steak",
+      "original": "***Candy eyes",
+      "originalName": "Candy eyes",
+      "amount": 48.0,
+      "unit": "servings",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 48.0,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        },
+        "metric": {
+          "amount": 48.0,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        }
+      }
+    },
+    {
+      "id": 10019230,
+      "aisle": "Baking",
+      "image": "frosting-or-icing.png",
+      "consistency": "SOLID",
+      "name": "icing",
+      "nameClean": "icing",
+      "original": "***Icing",
+      "originalName": "Icing",
+      "amount": 48.0,
+      "unit": "servings",
+      "meta": [],
+      "measures": {
+        "us": {
+          "amount": 48.0,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        },
+        "metric": {
+          "amount": 48.0,
+          "unitShort": "servings",
+          "unitLong": "servings"
+        }
+      }
+    }
+  ],
+  "id": 715449,
+  "title": "How to Make OREO Turkeys for Thanksgiving",
+  "readyInMinutes": 40,
+  "servings": 48,
+  "sourceUrl": "https://www.pinkwhen.com/oreo-cookie-balls-thanksgiving-turkey/",
+  "image": "https://spoonacular.com/recipeImages/715449-556x370.jpg",
+  "imageType": "jpg",
+  "summary": "How to Make OREO Turkeys for Thanksgiving requires about <b>40 minutes</b> from start to finish. This recipe serves 48. One serving contains <b>835 calories</b>, <b>47g of protein</b>, and <b>45g of fat</b>. For <b>$6.33 per serving</b>, this recipe <b>covers 27%</b> of your daily requirements of vitamins and minerals. 32767 people were impressed by this recipe. Head to the store and pick up oreo cookies 3 cups, icing, semi baking chocolate, and a few other things to make it today. It can be enjoyed any time, but it is especially good for <b>Thanksgiving</b>. It is brought to you by Pink When. Taking all factors into account, this recipe <b>earns a spoonacular score of 18%</b>, which is rather bad. Similar recipes are <a href=\"https://spoonacular.com/recipes/how-to-make-oreo-turkeys-for-thanksgiving-1364303\">How to Make OREO Turkeys for Thanksgiving</a>, <a href=\"https://spoonacular.com/recipes/oreo-turkeys-thanksgiving-snack-138063\">Oreo Turkeys (Thanksgiving Snack)</a>, and <a href=\"https://spoonacular.com/recipes/cakespy-thanksgiving-cookie-turkeys-50158\">Cakespy: Thanksgiving Cookie Turkeys</a>.",
+  "cuisines": [],
+  "dishTypes": [],
+  "diets": [],
+  "occasions": [
+    "thanksgiving"
+  ],
+  "winePairing": {
+    "pairedWines": [
+      "wine",
+      "alcoholic drink",
+      "ingredient",
+      "sparkling wine",
+      "food product category",
+      "red wine",
+      "sherry",
+      "dessert wine",
+      "moscato"
+    ],
+    "pairingText": "Wine, Alcoholic Drink, and Ingredient are my top picks for Oreo Cookies. A common wine pairing rule is to make sure your wine is sweeter than your food. Delicate desserts go well with Moscato d'Asti, nutty desserts with cream sherry, and caramel or chocolate desserts pair well with port. The Casal Figueiran Antonio with a 4.8 out of 5 star rating seems like a good match. It costs about 38 dollars per bottle.",
+    "productMatches": [
+      {
+        "id": 473454,
+        "title": "Casal Figueira Antonio",
+        "description": "Intense aromas of white flowers, fresh tarragon, green and yellow apple, pear and vanilla. On the palate, intense and bright, with silky texture and a rare combination of weight and elegance Orchard fruit, flowers, spice box and bright citrus lead to a long, intense finish with lilting tones of green herbs and mineral.This is a wine meant for bounty of the sea. Fluke crudo, roasted branzino, oysters Rockefeller, salt and pepper shrimp.",
+        "price": "$37.9900016784668",
+        "imageUrl": "https://spoonacular.com/productImages/473454-312x231.jpg",
+        "averageRating": 0.9599999785423279,
+        "ratingCount": 5.0,
+        "score": 0.8974999785423279,
+        "link": "https://click.linksynergy.com/deeplink?id=*QCiIS6t4gA&mid=2025&murl=https%3A%2F%2Fwww.wine.com%2Fproduct%2Fcasal-figueira-antonio-2017%2F542130"
+      }
+    ]
+  },
+  "instructions": "Instructions\n\nTake a package of OREO cookies and crush them up finely.\n\nTake softened cream cheese and mix well with cookie crumbs.\n\nRoll into one inch cookie balls, and then freeze for 10 minutes.\n\nDip cookie balls into melted chocolate and place on a prepared cookie sheet covered with wax paper.\n\nPlace into the refrigerator for 15 minutes to an hour before decorating.\n\nAdd 5 candy corn to the back of the ball as tail feathers.\n\nUse icing as glue to attach the candy eyes.\n\nCut one candy corn into pieces, using the white tip as the nose, and the orange part (cut in half) as feet.",
+  "analyzedInstructions": [
+    {
+      "name": "",
+      "steps": [
+        {
+          "number": 1,
+          "step": "Take a package of OREO cookies and crush them up finely.",
+          "ingredients": [
+            {
+              "id": 10018166,
+              "name": "oreo cookies",
+              "localizedName": "oreo cookies",
+              "image": "oreos.png"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 2,
+          "step": "Take softened cream cheese and mix well with cookie crumbs.",
+          "ingredients": [
+            {
+              "id": 10018192,
+              "name": "cookie crumbs",
+              "localizedName": "cookie crumbs",
+              "image": ""
+            },
+            {
+              "id": 1017,
+              "name": "cream cheese",
+              "localizedName": "cream cheese",
+              "image": "cream-cheese.jpg"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 3,
+          "step": "Roll into one inch cookie balls, and then freeze for 10 minutes.",
+          "ingredients": [
+            {
+              "id": 10118192,
+              "name": "cookies",
+              "localizedName": "cookies",
+              "image": "shortbread-cookies.jpg"
+            },
+            {
+              "id": 0,
+              "name": "roll",
+              "localizedName": "roll",
+              "image": "dinner-yeast-rolls.jpg"
+            }
+          ],
+          "equipment": [],
+          "length": {
+            "number": 10,
+            "unit": "minutes"
+          }
+        },
+        {
+          "number": 4,
+          "step": "Dip cookie balls into melted chocolate and place on a prepared cookie sheet covered with wax paper.",
+          "ingredients": [
+            {
+              "id": 19081,
+              "name": "chocolate",
+              "localizedName": "chocolate",
+              "image": "milk-chocolate.jpg"
+            },
+            {
+              "id": 10118192,
+              "name": "cookies",
+              "localizedName": "cookies",
+              "image": "shortbread-cookies.jpg"
+            },
+            {
+              "id": 0,
+              "name": "dip",
+              "localizedName": "dip",
+              "image": ""
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404727,
+              "name": "baking sheet",
+              "localizedName": "baking sheet",
+              "image": "baking-sheet.jpg"
+            },
+            {
+              "id": 404739,
+              "name": "wax paper",
+              "localizedName": "wax paper",
+              "image": "wax-paper.jpg"
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "step": "Place into the refrigerator for 15 minutes to an hour before decorating.",
+          "ingredients": [],
+          "equipment": [],
+          "length": {
+            "number": 15,
+            "unit": "minutes"
+          }
+        },
+        {
+          "number": 6,
+          "step": "Add 5 candy corn to the back of the ball as tail feathers.",
+          "ingredients": [
+            {
+              "id": 93637,
+              "name": "candy corn",
+              "localizedName": "candy corn",
+              "image": "candy-corn.jpg"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 7,
+          "step": "Use icing as glue to attach the candy eyes.",
+          "ingredients": [
+            {
+              "id": 0,
+              "name": "candy",
+              "localizedName": "candy",
+              "image": ""
+            },
+            {
+              "id": 10019230,
+              "name": "icing",
+              "localizedName": "icing",
+              "image": "frosting-or-icing.png"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 8,
+          "step": "Cut one candy corn into pieces, using the white tip as the nose, and the orange part (cut in half) as feet.",
+          "ingredients": [
+            {
+              "id": 93637,
+              "name": "candy corn",
+              "localizedName": "candy corn",
+              "image": "candy-corn.jpg"
+            },
+            {
+              "id": 9200,
+              "name": "orange",
+              "localizedName": "orange",
+              "image": "orange.png"
+            }
+          ],
+          "equipment": []
+        }
+      ]
+    }
+  ],
+  "originalId": null,
+  "spoonacularSourceUrl": "https://spoonacular.com/how-to-make-oreo-turkeys-for-thanksgiving-715449"
+}
