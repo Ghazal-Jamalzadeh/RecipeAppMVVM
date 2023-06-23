@@ -1,6 +1,9 @@
 package com.jmzd.ghazal.recipeappmvvm.models.detail
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 data class ResponseDetail(
     @SerializedName("aggregateLikes")
@@ -76,12 +79,13 @@ data class ResponseDetail(
     @SerializedName("winePairing")
     val winePairing: WinePairing?
 ) {
+    @Parcelize
     data class AnalyzedInstruction(
         @SerializedName("name")
         val name: String?,
         @SerializedName("steps")
-        val steps: List<Step>?
-    ) {
+        val steps: @RawValue List<Step>?
+    ) : Parcelable{
         data class Step(
             @SerializedName("equipment")
             val equipment: List<Equipment?>?,

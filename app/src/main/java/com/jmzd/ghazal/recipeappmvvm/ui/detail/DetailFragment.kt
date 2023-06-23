@@ -36,21 +36,27 @@ class DetailFragment : Fragment() {
     //Binding
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+
     //ViewModel
-    private val viewModel : DetailViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModels()
+
     //Args
-    private val args : DetailFragmentArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
+
     //Adapters
-    @Inject lateinit var instructionsAdapter: InstructionsAdapter
-    @Inject lateinit var stepsAdapter: StepsAdapter
+    @Inject
+    lateinit var instructionsAdapter: InstructionsAdapter
+    @Inject
+    lateinit var stepsAdapter: StepsAdapter
+
     //Other
-    private var recipeId : Int = 0
+    private var recipeId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentDetailBinding.inflate(inflater , container , false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,7 +67,7 @@ class DetailFragment : Fragment() {
         args.let {
             recipeId = args.recipeId
             //call api
-            if (recipeId != 0) viewModel.callDetailApi(recipeId , Constants.MY_API_KEY)
+            if (recipeId != 0) viewModel.callDetailApi(recipeId, Constants.MY_API_KEY)
         }
         //InitViews
         binding.apply {
@@ -80,7 +86,7 @@ class DetailFragment : Fragment() {
     private fun loadDetailDataFromApi() {
         viewModel.callDetailApi(recipeId, Constants.MY_API_KEY)
         binding.apply {
-            viewModel.detailLiveData.observe(viewLifecycleOwner) { response : NetworkRequest<ResponseDetail> ->
+            viewModel.detailLiveData.observe(viewLifecycleOwner) { response: NetworkRequest<ResponseDetail> ->
                 when (response) {
                     is NetworkRequest.Loading -> {
                         loading.isVisible(true, contentLay)
@@ -105,15 +111,16 @@ class DetailFragment : Fragment() {
     private fun initViewsWithData(data: ResponseDetail) {
         binding.apply {
             //Favorite
-    /*        viewModel.existsFavorite(data.id!!)
-            checkExistsFavorite()*/
+            /*        viewModel.existsFavorite(data.id!!)
+                    checkExistsFavorite()*/
             //Click favorites
-          /*  favoriteImg.setOnClickListener {
-                if (isExistsFavorite) deleteFavorite(data) else saveFavorite(data)
-            }*/
+            /*  favoriteImg.setOnClickListener {
+                  if (isExistsFavorite) deleteFavorite(data) else saveFavorite(data)
+              }*/
             //Image
             val imageSplit = data.image!!.split("-")
-            val imageSize = imageSplit[1].replace(Constants.OLD_IMAGE_SIZE, Constants.NEW_IMAGE_SIZE)
+            val imageSize =
+                imageSplit[1].replace(Constants.OLD_IMAGE_SIZE, Constants.NEW_IMAGE_SIZE)
             coverImg.load("${imageSplit[0]}-$imageSize") {
                 crossfade(true)
                 crossfade(800)
@@ -123,10 +130,10 @@ class DetailFragment : Fragment() {
             //Source
             data.sourceUrl?.let { source ->
                 sourceImg.isVisible = true
-         /*       sourceImg.setOnClickListener {
-                    val direction = DetailFragmentDirections.actionToWebView(source)
-                    findNavController().navigate(direction)
-                }*/
+                /*       sourceImg.setOnClickListener {
+                           val direction = DetailFragmentDirections.actionToWebView(source)
+                           findNavController().navigate(direction)
+                       }*/
             }
             //Text
             timeTxt.text = data.readyInMinutes!!.minToHour()
@@ -151,15 +158,17 @@ class DetailFragment : Fragment() {
                 in 0..59 -> healthyTxt.setDynamicallyColor(R.color.tart_orange)
             }
             //Instructions
-            instructionsCount.text = "${data.extendedIngredients!!.size} ${getString(R.string.items)}"
-            val instructions = HtmlCompat.fromHtml(data.instructions!!, HtmlCompat.FROM_HTML_MODE_COMPACT)
+            instructionsCount.text =
+                "${data.extendedIngredients!!.size} ${getString(R.string.items)}"
+            val instructions =
+                HtmlCompat.fromHtml(data.instructions!!, HtmlCompat.FROM_HTML_MODE_COMPACT)
             instructionsDesc.text = instructions
             initInstructionsList(data.extendedIngredients.toMutableList())
             //Steps
             initStepsList(data.analyzedInstructions!![0].steps!!.toMutableList())
             stepsShowMore.setOnClickListener {
-      /*          val direction = DetailFragmentDirections.actionDetailToSteps(data.analyzedInstructions[0])
-                findNavController().navigate(direction)*/
+                val direction = DetailFragmentDirections.actionDetailFragmentToStepsFragment(data.analyzedInstructions[0])
+                findNavController().navigate(direction)
             }
             //Diets
             setupChip(data.diets!!.toMutableList(), dietsChipGroup)
@@ -169,7 +178,8 @@ class DetailFragment : Fragment() {
     private fun setupChip(list: MutableList<String>, view: ChipGroup) {
         list.forEach {
             val chip = Chip(requireContext())
-            val drawable = ChipDrawable.createFromAttributes(requireContext(), null, 0, R.style.DietsChip)
+            val drawable =
+                ChipDrawable.createFromAttributes(requireContext(), null, 0, R.style.DietsChip)
             chip.setChipDrawable(drawable)
             chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGray))
             chip.text = it

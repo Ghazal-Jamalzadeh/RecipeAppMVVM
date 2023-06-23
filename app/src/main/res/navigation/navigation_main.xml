@@ -93,6 +93,10 @@
         android:id="@+id/stepsFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.steps.StepsFragment"
         android:label="fragment_steps"
-        tools:layout="@layout/fragment_steps" />
+        tools:layout="@layout/fragment_steps" >
+        <argument
+            android:name="data"
+            app:argType="com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseDetail$AnalyzedInstruction" />
+    </dialog>
 
 </navigation>
