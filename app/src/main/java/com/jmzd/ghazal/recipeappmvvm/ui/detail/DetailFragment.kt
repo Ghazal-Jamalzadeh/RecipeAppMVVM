@@ -13,18 +13,22 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.request.CachePolicy
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import com.jmzd.ghazal.recipeappmvvm.R
+import com.jmzd.ghazal.recipeappmvvm.adapter.InstructionsAdapter
+import com.jmzd.ghazal.recipeappmvvm.adapter.StepsAdapter
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentDetailBinding
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentSplashBinding
 import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseDetail
 import com.jmzd.ghazal.recipeappmvvm.utils.*
 import com.jmzd.ghazal.recipeappmvvm.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -36,6 +40,9 @@ class DetailFragment : Fragment() {
     private val viewModel : DetailViewModel by viewModels()
     //Args
     private val args : DetailFragmentArgs by navArgs()
+    //Adapters
+    @Inject lateinit var instructionsAdapter: InstructionsAdapter
+    @Inject lateinit var stepsAdapter: StepsAdapter
     //Other
     private var recipeId : Int = 0
 
@@ -147,7 +154,7 @@ class DetailFragment : Fragment() {
             instructionsCount.text = "${data.extendedIngredients!!.size} ${getString(R.string.items)}"
             val instructions = HtmlCompat.fromHtml(data.instructions!!, HtmlCompat.FROM_HTML_MODE_COMPACT)
             instructionsDesc.text = instructions
-            /*initInstructionsList(data.extendedIngredients.toMutableList())*/
+            initInstructionsList(data.extendedIngredients.toMutableList())
             //Steps
         /*    initStepsList(data.analyzedInstructions!![0].steps!!.toMutableList())
             stepsShowMore.setOnClickListener {
@@ -167,6 +174,16 @@ class DetailFragment : Fragment() {
             chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkGray))
             chip.text = it
             view.addView(chip)
+        }
+    }
+
+    private fun initInstructionsList(list: MutableList<ResponseDetail.ExtendedIngredient>) {
+        if (list.isNotEmpty()) {
+            instructionsAdapter.setData(list)
+            binding.instructionsList.setupRecyclerview(
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
+                instructionsAdapter
+            )
         }
     }
 

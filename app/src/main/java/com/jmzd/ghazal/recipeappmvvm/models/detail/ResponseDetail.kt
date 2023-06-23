@@ -22,7 +22,7 @@ data class ResponseDetail(
     @SerializedName("dishTypes")
     val dishTypes: List<Any?>?,
     @SerializedName("extendedIngredients")
-    val extendedIngredients: List<ExtendedIngredient?>?,
+    val extendedIngredients: List<ExtendedIngredient>?,
     @SerializedName("gaps")
     val gaps: String?, // no
     @SerializedName("glutenFree")
