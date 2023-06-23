@@ -156,11 +156,11 @@ class DetailFragment : Fragment() {
             instructionsDesc.text = instructions
             initInstructionsList(data.extendedIngredients.toMutableList())
             //Steps
-        /*    initStepsList(data.analyzedInstructions!![0].steps!!.toMutableList())
+            initStepsList(data.analyzedInstructions!![0].steps!!.toMutableList())
             stepsShowMore.setOnClickListener {
-                val direction = DetailFragmentDirections.actionDetailToSteps(data.analyzedInstructions[0])
-                findNavController().navigate(direction)
-            }*/
+      /*          val direction = DetailFragmentDirections.actionDetailToSteps(data.analyzedInstructions[0])
+                findNavController().navigate(direction)*/
+            }
             //Diets
             setupChip(data.diets!!.toMutableList(), dietsChipGroup)
         }
@@ -184,6 +184,24 @@ class DetailFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
                 instructionsAdapter
             )
+        }
+    }
+
+    private fun initStepsList(list: MutableList<ResponseDetail.AnalyzedInstruction.Step>) {
+        if (list.isNotEmpty()) {
+            Constants.STEPS_COUNT = if (list.size < 3) {
+                list.size
+            } else {
+                3
+            }
+            stepsAdapter.setData(list)
+            binding.apply {
+                stepsList.setupRecyclerview(LinearLayoutManager(requireContext()), stepsAdapter)
+                //Show more
+                if (list.size > 3) {
+                    stepsShowMore.isVisible = true
+                }
+            }
         }
     }
 

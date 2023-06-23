@@ -6,7 +6,7 @@ data class ResponseDetail(
     @SerializedName("aggregateLikes")
     val aggregateLikes: Int?, // 32767
     @SerializedName("analyzedInstructions")
-    val analyzedInstructions: List<AnalyzedInstruction?>?,
+    val analyzedInstructions: List<AnalyzedInstruction>?,
     @SerializedName("cheap")
     val cheap: Boolean?, // false
     @SerializedName("cookingMinutes")
@@ -80,7 +80,7 @@ data class ResponseDetail(
         @SerializedName("name")
         val name: String?,
         @SerializedName("steps")
-        val steps: List<Step?>?
+        val steps: List<Step>?
     ) {
         data class Step(
             @SerializedName("equipment")
