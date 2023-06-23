@@ -48,6 +48,9 @@
         <argument
             android:name="recipeId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailFragment_to_stepsFragment"
+            app:destination="@id/stepsFragment" />
     </fragment>
     <dialog
         android:id="@+id/menuFragment"
@@ -86,5 +89,10 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    <dialog
+        android:id="@+id/stepsFragment"
+        android:name="com.jmzd.ghazal.recipeappmvvm.ui.steps.StepsFragment"
+        android:label="fragment_steps"
+        tools:layout="@layout/fragment_steps" />
 
 </navigation>
