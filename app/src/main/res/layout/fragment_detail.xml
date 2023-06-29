@@ -447,6 +447,7 @@
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/_10mdp"
+                    app:shimmer_recycler_layout="@layout/item_similar_shimmer"
                     tools:listitem="@layout/item_similar"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"

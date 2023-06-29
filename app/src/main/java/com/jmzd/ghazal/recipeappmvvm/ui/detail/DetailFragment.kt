@@ -21,10 +21,13 @@ import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.adapter.InstructionsAdapter
+import com.jmzd.ghazal.recipeappmvvm.adapter.SimilarAdapter
 import com.jmzd.ghazal.recipeappmvvm.adapter.StepsAdapter
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentDetailBinding
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentSplashBinding
 import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseDetail
+import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseSimilar
+import com.jmzd.ghazal.recipeappmvvm.ui.recipe.RecipeFragmentDirections
 import com.jmzd.ghazal.recipeappmvvm.utils.*
 import com.jmzd.ghazal.recipeappmvvm.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,8 +47,8 @@ class DetailFragment : Fragment() {
     private val args: DetailFragmentArgs by navArgs()
 
     //Adapters
-    @Inject
-    lateinit var instructionsAdapter: InstructionsAdapter
+    @Inject lateinit var instructionsAdapter: InstructionsAdapter
+    @Inject lateinit var similarAdapter: SimilarAdapter
 
     @Inject
     lateinit var stepsAdapter: StepsAdapter
@@ -77,6 +80,7 @@ class DetailFragment : Fragment() {
         }
         //Load data
         loadDetailDataFromApi()
+        loadSimilarDataFromApi()
     }
 
     override fun onDestroy() {
@@ -84,6 +88,7 @@ class DetailFragment : Fragment() {
         _binding = null
     }
 
+    //--- call api and observers ---//
     private fun loadDetailDataFromApi() {
         viewModel.callDetailApi(recipeId, Constants.MY_API_KEY)
         binding.apply {
@@ -107,7 +112,30 @@ class DetailFragment : Fragment() {
         }
     }
 
+    private fun loadSimilarDataFromApi() {
+        viewModel.callSimilarApi(recipeId, Constants.MY_API_KEY)
+        binding.apply {
+            viewModel.similarData.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkRequest.Loading -> {
+                        similarList.showShimmer()
+                    }
+                    is NetworkRequest.Success -> {
+                        similarList.hideShimmer()
+                        response.data?.let { data ->
+                            initSimilarData(data)
+                        }
+                    }
+                    is NetworkRequest.Error -> {
+                        similarList.hideShimmer()
+                        binding.root.showSnackBar(response.message!!)
+                    }
+                }
+            }
+        }
+    }
 
+    //--- show data ---//
     @SuppressLint("SetTextI18n")
     private fun initViewsWithData(data: ResponseDetail) {
         binding.apply {
@@ -177,6 +205,7 @@ class DetailFragment : Fragment() {
         }
     }
 
+    //--- chips ---//
     private fun setupChip(list: MutableList<String>, view: ChipGroup) {
         list.forEach {
             val chip = Chip(requireContext())
@@ -189,6 +218,7 @@ class DetailFragment : Fragment() {
         }
     }
 
+    //--- recycler views  ---//
     private fun initInstructionsList(list: MutableList<ResponseDetail.ExtendedIngredient>) {
         if (list.isNotEmpty()) {
             instructionsAdapter.setData(list)
@@ -214,6 +244,19 @@ class DetailFragment : Fragment() {
                     stepsShowMore.isVisible = true
                 }
             }
+        }
+    }
+
+    private fun initSimilarData(list: MutableList<ResponseSimilar.ResponseSimilarItem>) {
+        similarAdapter.setData(list)
+        binding.similarList.setupRecyclerview(
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
+            similarAdapter
+        )
+        //Click
+        similarAdapter.setOnItemClickListener { id : Int ->
+            val action = RecipeFragmentDirections.actionToDetailFragment(id)
+            findNavController().navigate(action)
         }
     }
 
