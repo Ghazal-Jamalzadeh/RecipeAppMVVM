@@ -1386,5 +1386,8 @@ cache detail data-------------------------------------------------------کش ک�
 
 4- local datasource
 
+5- add new entity to database and increase database version
+
+6- viewModel
 
 
