@@ -362,3 +362,27 @@ app:readMoreColor="@color/tart_orange"
 app:readMoreMaxLine="4"
 app:readMoreText="@string/showMore"
 
+LinearProgressIndicator-----------------------------------------------------------------------------
+
+android:indeterminate="false"
+یعنی نمیخوام حالت نامشخص داشته باشه و میخوام مشخص باشه
+یعنی چی مشخص؟
+مثلا تو حالت پروگرس بار دایره ای دیدید که همینور میچرخه
+یا همینطور الکی تو لوپ چپ و راست میشن
+یعنی ما میخوایم از یه جایی شروع شه بره جلو و همین طور که میره جلو کاربر میفهمه چنددرصد کار رفته
+
+app:indicatorColor="@color/jacarta"
+رنگ اصلی پر شدن
+
+app:trackColor="@color/whiteSmoke"
+رنگ پس زمینه خالی (خاکستری طور)
+
+app:trackCornerRadius="@dimen/_10mdp"
+گردی دورش
+
+app:trackThickness="@dimen/_3mdp"
+ضخامت یا ارتفاعش
+
+android:progress = "50"
+مقدار پر بودن پیش فرض
+
