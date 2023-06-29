@@ -793,3 +793,99 @@ https://api.spoonacular.com/recipes/715449/information?apiKey=5ace23b237e0430590
   "originalId": null,
   "spoonacularSourceUrl": "https://spoonacular.com/how-to-make-oreo-turkeys-for-thanksgiving-715449"
 }
+
+Similar---------------------------------------------------------------------------------------------
+GET https://api.spoonacular.com/recipes/715538/similar
+
+Parameters
+Name	        Type	    Example	        Description
+id	            number	    715538	        The id of the source recipe for which similar recipes should be found.
+number	        number	    1	            The number of random recipes to be returned (between 1 and 100).
+limitLicense	boolean	    true	        Whether the recipes should have an open license that allows display with proper attribution.
+
+لایسنس اگه بخوای رو گوگل پلی اینا منتشر کنی و مشکل کپی رایت پیش نیاد باید استفاده کنی
+
+https://api.spoonacular.com/recipes/766453/similar?apiKey=5ace23b237e0430590fc4f8f8f0cfc66
+
+[
+  {
+    "id": 132855,
+    "imageType": "jpg",
+    "title": "Za'atar Bread Rolls (Manaiesh Bi Za'atar)",
+    "readyInMinutes": 70,
+    "servings": 6,
+    "sourceUrl": "http://www.food.com/recipe/zaatar-bread-rolls-manaiesh-bi-zaatar-142472"
+  },
+  {
+    "id": 180958,
+    "imageType": "jpg",
+    "title": "Chopped Hummus Dip with Za'atar",
+    "readyInMinutes": 30,
+    "servings": 8,
+    "sourceUrl": "https://www.bettycrocker.com/recipes/chopped-hummus-dip-with-zaatar/b8ca2c7d-c707-40d6-bddb-08487c50bb0c"
+  },
+  {
+    "id": 1067472,
+    "imageType": "jpg",
+    "title": "Mediterranean Hummus Toast with Za’atar",
+    "readyInMinutes": 10,
+    "servings": 2,
+    "sourceUrl": "https://www.acedarspoon.com/mediterranean-hummus-toast-with-zaatar/"
+  },
+  {
+    "id": 626237,
+    "imageType": "jpg",
+    "title": "Hummus Deviled Eggs with Za’atar {Exercise Challenge}",
+    "readyInMinutes": 35,
+    "servings": 12,
+    "sourceUrl": "http://thelemonbowl.com/2015/01/hummus-deviled-eggs-with-zaatar-exercise-challenge.html"
+  },
+  {
+    "id": 481161,
+    "imageType": "jpg",
+    "title": "Za’atar",
+    "readyInMinutes": 5,
+    "servings": 4,
+    "sourceUrl": "http://whatjewwannaeat.com/zaatar-recipe/"
+  },
+  {
+    "id": 1090585,
+    "imageType": "jpg",
+    "title": "Za'atar",
+    "readyInMinutes": 7,
+    "servings": 8,
+    "sourceUrl": "https://www.bbcgoodfood.com/recipes/zaatar"
+  },
+  {
+    "id": 340545,
+    "imageType": "jpg",
+    "title": "Za'atar",
+    "readyInMinutes": 45,
+    "servings": 4,
+    "sourceUrl": "http://www.myrecipes.com/recipe/zaatar-10000001853997/"
+  },
+  {
+    "id": 796588,
+    "imageType": "jpg",
+    "title": "Za'atar",
+    "readyInMinutes": 5,
+    "servings": 8,
+    "sourceUrl": "http://www.closetcooking.com/2016/08/zaatar.html"
+  },
+  {
+    "id": 155799,
+    "imageType": "jpg",
+    "title": "Za'atar",
+    "readyInMinutes": 45,
+    "servings": 2,
+    "sourceUrl": "http://www.epicurious.com/recipes/food/views/Zaatar-51186220"
+  },
+  {
+    "id": 620620,
+    "imageType": "jpg",
+    "title": "Homemade Za'atar",
+    "readyInMinutes": 45,
+    "servings": 3,
+    "sourceUrl": "http://foodandspice.blogspot.de/2014/11/staple-corner-how-to-make-your-own.html"
+  }
+]
