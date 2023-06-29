@@ -1,4 +1,4 @@
-package com.jmzd.ghazal.recipeappmvvm.data.database
+package com.jmzd.ghazal.recipeappmvvm.data.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,8 +1,7 @@
 package com.jmzd.ghazal.recipeappmvvm.viewmodel
 
-import android.telephony.SignalStrength
 import androidx.lifecycle.*
-import com.jmzd.ghazal.recipeappmvvm.data.database.RecipeEntity
+import com.jmzd.ghazal.recipeappmvvm.data.database.entity.RecipeEntity
 import com.jmzd.ghazal.recipeappmvvm.data.repository.MenuRepository
 import com.jmzd.ghazal.recipeappmvvm.data.repository.RecipeRepository
 import com.jmzd.ghazal.recipeappmvvm.models.menu.MenuStoredModel
@@ -13,7 +12,6 @@ import com.jmzd.ghazal.recipeappmvvm.utils.NetworkResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject

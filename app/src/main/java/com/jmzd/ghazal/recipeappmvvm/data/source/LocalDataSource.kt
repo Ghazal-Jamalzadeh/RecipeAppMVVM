@@ -1,7 +1,7 @@
 package com.jmzd.ghazal.recipeappmvvm.data.source
 
 import com.jmzd.ghazal.recipeappmvvm.data.database.RecipeAppDao
-import com.jmzd.ghazal.recipeappmvvm.data.database.RecipeEntity
+import com.jmzd.ghazal.recipeappmvvm.data.database.entity.RecipeEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

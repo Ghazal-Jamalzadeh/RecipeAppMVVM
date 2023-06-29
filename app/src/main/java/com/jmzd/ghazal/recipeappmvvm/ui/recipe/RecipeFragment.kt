@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.adapter.PopularAdapter
 import com.jmzd.ghazal.recipeappmvvm.adapter.RecentAdapter
-import com.jmzd.ghazal.recipeappmvvm.data.database.RecipeEntity
+import com.jmzd.ghazal.recipeappmvvm.data.database.entity.RecipeEntity
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentRecipeBinding
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes.*
