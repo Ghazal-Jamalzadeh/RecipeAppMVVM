@@ -889,3 +889,5 @@ https://api.spoonacular.com/recipes/766453/similar?apiKey=5ace23b237e0430590fc4f
     "sourceUrl": "http://foodandspice.blogspot.de/2014/11/staple-corner-how-to-make-your-own.html"
   }
 ]
+
+نکته جالب در مورد این api نوع ساختن کلاس دیتا هست که آرایه میسازه و خروجی رتروفیت اون کلاسه*********
