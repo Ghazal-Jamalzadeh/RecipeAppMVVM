@@ -56,7 +56,11 @@
         android:id="@+id/webViewFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.webview.WebViewFragment"
         android:label="fragment_web_view"
-        tools:layout="@layout/fragment_web_view" />
+        tools:layout="@layout/fragment_web_view" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
     <dialog
         android:id="@+id/menuFragment"
         android:name="com.jmzd.ghazal.recipeappmvvm.ui.menu.MenuFragment"

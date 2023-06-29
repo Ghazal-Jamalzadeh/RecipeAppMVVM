@@ -46,6 +46,7 @@ class DetailFragment : Fragment() {
     //Adapters
     @Inject
     lateinit var instructionsAdapter: InstructionsAdapter
+
     @Inject
     lateinit var stepsAdapter: StepsAdapter
 
@@ -130,10 +131,10 @@ class DetailFragment : Fragment() {
             //Source
             data.sourceUrl?.let { source ->
                 sourceImg.isVisible = true
-                /*       sourceImg.setOnClickListener {
-                           val direction = DetailFragmentDirections.actionToWebView(source)
-                           findNavController().navigate(direction)
-                       }*/
+                sourceImg.setOnClickListener {
+                    val direction = DetailFragmentDirections.actionToWebViewFragment(source)
+                    findNavController().navigate(direction)
+                }
             }
             //Text
             timeTxt.text = data.readyInMinutes!!.minToHour()
@@ -167,7 +168,8 @@ class DetailFragment : Fragment() {
             //Steps
             initStepsList(data.analyzedInstructions!![0].steps!!.toMutableList())
             stepsShowMore.setOnClickListener {
-                val direction = DetailFragmentDirections.actionDetailFragmentToStepsFragment(data.analyzedInstructions[0])
+                val direction =
+                    DetailFragmentDirections.actionDetailFragmentToStepsFragment(data.analyzedInstructions[0])
                 findNavController().navigate(direction)
             }
             //Diets
