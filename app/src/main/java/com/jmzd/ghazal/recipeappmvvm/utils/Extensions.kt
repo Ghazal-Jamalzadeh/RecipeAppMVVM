@@ -1,6 +1,8 @@
 package com.jmzd.ghazal.recipeappmvvm.utils
 
+import android.content.res.ColorStateList
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -53,4 +55,11 @@ fun View.isVisible(isShownLoading: Boolean, container: View) {
         this.isVisible = false
         container.isVisible = true
     }
+}
+
+fun ImageView.setTint(color: Int) {
+    /*هر دوی این کدها یک کار انجام میدن و اگه دیس رو ننویسیم هم اوکیه*/
+    /* وقتی اکستنشن روی ویو هست کانتکس رو خیلی راحت از همون ویو میگیره*/
+//    this.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this.context, color))
+    imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, color))
 }

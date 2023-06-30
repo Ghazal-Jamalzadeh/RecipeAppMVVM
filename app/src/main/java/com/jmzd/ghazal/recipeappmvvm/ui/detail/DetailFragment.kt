@@ -24,6 +24,7 @@ import com.jmzd.ghazal.recipeappmvvm.adapter.InstructionsAdapter
 import com.jmzd.ghazal.recipeappmvvm.adapter.SimilarAdapter
 import com.jmzd.ghazal.recipeappmvvm.adapter.StepsAdapter
 import com.jmzd.ghazal.recipeappmvvm.data.database.entity.DetailEntity
+import com.jmzd.ghazal.recipeappmvvm.data.database.entity.FavoriteEntity
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentDetailBinding
 import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseDetail
 import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseSimilar
@@ -54,14 +55,17 @@ class DetailFragment : Fragment() {
     //Adapters
     @Inject
     lateinit var instructionsAdapter: InstructionsAdapter
+
     @Inject
     lateinit var similarAdapter: SimilarAdapter
+
     @Inject
     lateinit var stepsAdapter: StepsAdapter
 
     //Other
     private var recipeId: Int = 0
     private var isExistsCache = false
+    private var isExistsFavorite = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -184,12 +188,12 @@ class DetailFragment : Fragment() {
     private fun initViewsWithData(data: ResponseDetail) {
         binding.apply {
             //Favorite
-            /*        viewModel.existsFavorite(data.id!!)
-                    checkExistsFavorite()*/
+            viewModel.existsFavorite(data.id!!)
+            checkExistsFavorite()
             //Click favorites
-            /*  favoriteImg.setOnClickListener {
-                  if (isExistsFavorite) deleteFavorite(data) else saveFavorite(data)
-              }*/
+            favoriteImg.setOnClickListener {
+                if (isExistsFavorite) deleteFavorite(data) else saveFavorite(data)
+            }
             //Image
             val imageSplit = data.image!!.split("-")
             val imageSize =
@@ -307,5 +311,34 @@ class DetailFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
+
+    //--- Favorites ---//
+    private fun saveFavorite(data: ResponseDetail) {
+        val entity = FavoriteEntity(data.id!!, data)
+        viewModel.saveFavorite(entity)
+    }
+
+    private fun deleteFavorite(data: ResponseDetail) {
+        val entity = FavoriteEntity(data.id!!, data)
+        viewModel.deleteFavorite(entity)
+    }
+
+    private fun checkExistsFavorite() {
+        viewModel.existsFavoriteLiveData.observe(viewLifecycleOwner) {
+            isExistsFavorite = it
+            if (it) {
+                binding.favoriteImg.apply {
+                    setTint(R.color.tart_orange)
+                    setImageResource(R.drawable.ic_heart_circle_minus)
+                }
+            } else {
+                binding.favoriteImg.apply {
+                    setTint(R.color.persianGreen)
+                    setImageResource(R.drawable.ic_heart_circle_plus)
+                }
+            }
+        }
+    }
+
 
 }
