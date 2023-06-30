@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentDetailBinding
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentFavouritesBinding
+import com.jmzd.ghazal.recipeappmvvm.viewmodel.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavouritesFragment : Fragment() {
@@ -16,6 +19,9 @@ class FavouritesFragment : Fragment() {
     //Binding
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
+
+    //Other
+    private val viewModel: FavoriteViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
