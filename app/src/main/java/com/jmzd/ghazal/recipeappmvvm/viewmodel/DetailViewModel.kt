@@ -21,7 +21,7 @@ class DetailViewModel @Inject constructor(private val repository: RecipeReposito
 
     fun callDetailApi(id: Int, apiKey: String) = viewModelScope.launch {
         detailLiveData.value = NetworkRequest.Loading()
-        val response : Response<ResponseDetail> = repository.remote.getDetail(id, apiKey)
+        val response: Response<ResponseDetail> = repository.remote.getDetail(id, apiKey)
         detailLiveData.value = NetworkResponse(response).generalNetworkResponse()
         //cache
         val cache = detailLiveData.value?.data
@@ -42,17 +42,18 @@ class DetailViewModel @Inject constructor(private val repository: RecipeReposito
         repository.local.saveDetail(entity)
     }
 
-    fun readDetailFromDb(id : Int ) : LiveData<DetailEntity> = repository.local.loadDetail(id).asLiveData()
+    fun readDetailFromDb(id: Int): LiveData<DetailEntity> =
+        repository.local.loadDetail(id).asLiveData()
 
     val existsDetailLiveData = MutableLiveData<Boolean>()
-    fun existsDetail(id : Int) = viewModelScope.launch {
-        repository.local.existsDetail(id).collect{ isExist : Boolean ->
+    fun existsDetail(id: Int) = viewModelScope.launch {
+        repository.local.existsDetail(id).collect { isExist: Boolean ->
             existsDetailLiveData.postValue(isExist)
         }
     }
 
-    private fun cacheDetail(recipeId : Int , detail : ResponseDetail) {
-        saveDetail(DetailEntity(id = recipeId , result = detail))
+    private fun cacheDetail(recipeId: Int, detail: ResponseDetail) {
+        saveDetail(DetailEntity(id = recipeId, result = detail))
     }
 
 }

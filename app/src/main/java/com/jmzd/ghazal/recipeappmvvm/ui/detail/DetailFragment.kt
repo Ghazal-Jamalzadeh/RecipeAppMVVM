@@ -2,7 +2,6 @@ package com.jmzd.ghazal.recipeappmvvm.ui.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.provider.SyncStateContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,14 +23,15 @@ import com.jmzd.ghazal.recipeappmvvm.R
 import com.jmzd.ghazal.recipeappmvvm.adapter.InstructionsAdapter
 import com.jmzd.ghazal.recipeappmvvm.adapter.SimilarAdapter
 import com.jmzd.ghazal.recipeappmvvm.adapter.StepsAdapter
+import com.jmzd.ghazal.recipeappmvvm.data.database.entity.DetailEntity
 import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentDetailBinding
-import com.jmzd.ghazal.recipeappmvvm.databinding.FragmentSplashBinding
 import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseDetail
 import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseSimilar
 import com.jmzd.ghazal.recipeappmvvm.ui.recipe.RecipeFragmentDirections
 import com.jmzd.ghazal.recipeappmvvm.utils.*
 import com.jmzd.ghazal.recipeappmvvm.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -46,15 +47,21 @@ class DetailFragment : Fragment() {
     //Args
     private val args: DetailFragmentArgs by navArgs()
 
-    //Adapters
-    @Inject lateinit var instructionsAdapter: InstructionsAdapter
-    @Inject lateinit var similarAdapter: SimilarAdapter
+    //Network checker
+    @Inject
+    lateinit var networkChecker: NetworkChecker
 
+    //Adapters
+    @Inject
+    lateinit var instructionsAdapter: InstructionsAdapter
+    @Inject
+    lateinit var similarAdapter: SimilarAdapter
     @Inject
     lateinit var stepsAdapter: StepsAdapter
 
     //Other
     private var recipeId: Int = 0
+    private var isExistsCache = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,16 +78,34 @@ class DetailFragment : Fragment() {
         args.let {
             recipeId = args.recipeId
             //call api
-            if (recipeId != 0) viewModel.callDetailApi(recipeId, Constants.MY_API_KEY)
+            if (recipeId != 0) {
+                checkExistsDetailInCache(recipeId)
+            }
         }
+        //Check Internet
+        lifecycleScope.launchWhenStarted {
+            networkChecker.checkNetworkAvailability().collect { isConnected: Boolean ->
+                delay(200)
+                if (isExistsCache.not()) {
+                    initInternetLayout(isConnected)
+                    if (isConnected) {
+                        viewModel.callDetailApi(recipeId, Constants.MY_API_KEY)
+                        observeDetailDataFromApi()
+                    }
+                }
+                //Similar
+                if (isConnected) {
+                    viewModel.callSimilarApi(recipeId, Constants.MY_API_KEY)
+                    observeSimilarDataFromApi()
+                }
+            }
+        }
+
         //InitViews
         binding.apply {
             //Back
             backImg.setOnClickListener { findNavController().popBackStack() }
         }
-        //Load data
-        loadDetailDataFromApi()
-        loadSimilarDataFromApi()
     }
 
     override fun onDestroy() {
@@ -88,9 +113,29 @@ class DetailFragment : Fragment() {
         _binding = null
     }
 
-    //--- call api and observers ---//
-    private fun loadDetailDataFromApi() {
-        viewModel.callDetailApi(recipeId, Constants.MY_API_KEY)
+    //--- load data from cache ---//
+
+    private fun checkExistsDetailInCache(id: Int) {
+        viewModel.existsDetail(id)
+        //Load
+        viewModel.existsDetailLiveData.observe(viewLifecycleOwner) { isExist: Boolean ->
+            isExistsCache = isExist
+            if (isExist) {
+                loadDetailDataFromDb()
+                binding.contentLay.isVisible = true
+            }
+        }
+    }
+
+    private fun loadDetailDataFromDb() {
+        viewModel.readDetailFromDb(recipeId)
+            .observe(viewLifecycleOwner) { cachedEntity: DetailEntity ->
+                initViewsWithData(cachedEntity.result)
+            }
+    }
+
+    //--- api results observers ---//
+    private fun observeDetailDataFromApi() {
         binding.apply {
             viewModel.detailLiveData.observe(viewLifecycleOwner) { response: NetworkRequest<ResponseDetail> ->
                 when (response) {
@@ -112,8 +157,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun loadSimilarDataFromApi() {
-        viewModel.callSimilarApi(recipeId, Constants.MY_API_KEY)
+    private fun observeSimilarDataFromApi() {
         binding.apply {
             viewModel.similarData.observe(viewLifecycleOwner) { response ->
                 when (response) {
@@ -205,6 +249,10 @@ class DetailFragment : Fragment() {
         }
     }
 
+    private fun initInternetLayout(isConnected: Boolean) {
+        binding.internetLay.isVisible = isConnected.not()
+    }
+
     //--- chips ---//
     private fun setupChip(list: MutableList<String>, view: ChipGroup) {
         list.forEach {
@@ -254,7 +302,7 @@ class DetailFragment : Fragment() {
             similarAdapter
         )
         //Click
-        similarAdapter.setOnItemClickListener { id : Int ->
+        similarAdapter.setOnItemClickListener { id: Int ->
             val action = RecipeFragmentDirections.actionToDetailFragment(id)
             findNavController().navigate(action)
         }
