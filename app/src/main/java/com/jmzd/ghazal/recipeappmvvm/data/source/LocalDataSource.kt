@@ -2,6 +2,7 @@ package com.jmzd.ghazal.recipeappmvvm.data.source
 
 import com.jmzd.ghazal.recipeappmvvm.data.database.RecipeAppDao
 import com.jmzd.ghazal.recipeappmvvm.data.database.entity.DetailEntity
+import com.jmzd.ghazal.recipeappmvvm.data.database.entity.FavoriteEntity
 import com.jmzd.ghazal.recipeappmvvm.data.database.entity.RecipeEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -16,5 +17,11 @@ class LocalDataSource @Inject constructor(private val dao: RecipeAppDao) {
     suspend fun saveDetail(entity: DetailEntity) = dao.saveDetail(entity)
     fun loadDetail(id: Int) = dao.loadDetailById(id)
     fun existsDetail(id: Int) = dao.existsDetail(id)
+
+    //Favorite
+    suspend fun saveFavorite(entity: FavoriteEntity) = dao.saveFavorite(entity)
+    suspend fun deleteFavorite(entity: FavoriteEntity) = dao.deleteFavorite(entity)
+    fun loadFavorites() = dao.loadFavorites()
+    fun existsFavorite(id: Int) = dao.existsFavorite(id)
 
 }
