@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseLucky(
     @SerializedName("recipes")
-    val recipes: List<Recipe?>?
+    val recipes: List<Recipe>?
 ) {
     data class Recipe(
         @SerializedName("aggregateLikes")

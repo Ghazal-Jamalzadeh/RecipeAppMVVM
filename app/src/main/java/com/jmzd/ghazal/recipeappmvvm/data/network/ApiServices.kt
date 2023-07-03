@@ -3,6 +3,7 @@ package com.jmzd.ghazal.recipeappmvvm.data.network
 
 import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseDetail
 import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseSimilar
+import com.jmzd.ghazal.recipeappmvvm.models.lucky.ResponseLucky
 import com.jmzd.ghazal.recipeappmvvm.models.recipe.ResponseRecipes
 import com.jmzd.ghazal.recipeappmvvm.models.register.BodyRegister
 import com.jmzd.ghazal.recipeappmvvm.models.register.ResponseRegister
@@ -23,6 +24,6 @@ interface ApiServices {
     @GET("recipes/{id}/similar")
     suspend fun getSimilarRecipes(@Path("id") recipeId: Int, @Query(API_KEY) apiKey: String): Response<ResponseSimilar>
 
-//    @GET("recipes/random")
-//    suspend fun getRandomRecipe(@QueryMap queries: Map<String, String>): Response<ResponseLucky>
+    @GET("recipes/random")
+    suspend fun getRandomRecipe(@QueryMap queries: Map<String, String>): Response<ResponseLucky>
 }
