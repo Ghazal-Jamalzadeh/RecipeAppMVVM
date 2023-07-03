@@ -891,3 +891,699 @@ https://api.spoonacular.com/recipes/766453/similar?apiKey=5ace23b237e0430590fc4f
 ]
 
 نکته جالب در مورد این api نوع ساختن کلاس دیتا هست که آرایه میسازه و خروجی رتروفیت اون کلاسه*********
+
+Lucky / Random Food---------------------------------------------------------------------------------
+https://spoonacular.com/food-api/docs#Get-Random-Recipes
+
+Parameters
+Name	        Type	    Example	                Description
+limitLicense	boolean	    true	                Whether the recipes should have an open license that allows display with proper attribution.
+tags	        string	    vegetarian, dessert	    The tags (can be diets, meal types, cuisines, or intolerances) that the recipe must have.
+number	        number	    1	                    The number of random recipes to be returned (between 1 and 100).
+پارامترهای بالا رو میشه فرستاد ولی هیچ کدوم اجباری نیست
+
+Example Request and Response
+https://api.spoonacular.com/recipes/random?apiKey=5ace23b237e0430590fc4f8f8f0cfc66&number=1&addRecipeInformation=true
+
+{
+  "recipes": [
+    {
+      "vegetarian": false,
+      "vegan": false,
+      "glutenFree": true,
+      "dairyFree": false,
+      "veryHealthy": false,
+      "cheap": false,
+      "veryPopular": false,
+      "sustainable": false,
+      "lowFodmap": false,
+      "weightWatcherSmartPoints": 20,
+      "gaps": "no",
+      "preparationMinutes": -1,
+      "cookingMinutes": -1,
+      "aggregateLikes": 3,
+      "healthScore": 15,
+      "creditsText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+      "license": "CC BY 3.0",
+      "sourceName": "Foodista",
+      "pricePerServing": 331.2,
+      "extendedIngredients": [
+        {
+          "id": 10013149,
+          "aisle": "Meat",
+          "image": "beef-short-ribs.jpg",
+          "consistency": "SOLID",
+          "name": "beef short ribs",
+          "nameClean": "bone in beef short ribs",
+          "original": "2 pounds country-style pork ribs or beef short ribs",
+          "originalName": "country-style pork ribs or beef short ribs",
+          "amount": 2.0,
+          "unit": "pounds",
+          "meta": [
+            "country-style"
+          ],
+          "measures": {
+            "us": {
+              "amount": 2.0,
+              "unitShort": "lb",
+              "unitLong": "pounds"
+            },
+            "metric": {
+              "amount": 907.185,
+              "unitShort": "g",
+              "unitLong": "grams"
+            }
+          }
+        },
+        {
+          "id": 4669,
+          "aisle": "Oil, Vinegar, Salad Dressing",
+          "image": "vegetable-oil.jpg",
+          "consistency": "LIQUID",
+          "name": "vegetable oil",
+          "nameClean": "vegetable oil",
+          "original": "2 tablespoons lard (pork), tallow, or vegetable oil (",
+          "originalName": "lard (pork), tallow, or vegetable oil (",
+          "amount": 2.0,
+          "unit": "tablespoons",
+          "meta": [
+            "(pork)"
+          ],
+          "measures": {
+            "us": {
+              "amount": 2.0,
+              "unitShort": "Tbsps",
+              "unitLong": "Tbsps"
+            },
+            "metric": {
+              "amount": 2.0,
+              "unitShort": "Tbsps",
+              "unitLong": "Tbsps"
+            }
+          }
+        },
+        {
+          "id": 10511282,
+          "aisle": "Produce",
+          "image": "brown-onion.png",
+          "consistency": "SOLID",
+          "name": "onion",
+          "nameClean": "yellow onion",
+          "original": "1 small yellow onion, finely chopped",
+          "originalName": "yellow onion, finely chopped",
+          "amount": 1.0,
+          "unit": "small",
+          "meta": [
+            "yellow",
+            "finely chopped"
+          ],
+          "measures": {
+            "us": {
+              "amount": 1.0,
+              "unitShort": "small",
+              "unitLong": "small"
+            },
+            "metric": {
+              "amount": 1.0,
+              "unitShort": "small",
+              "unitLong": "small"
+            }
+          }
+        },
+        {
+          "id": 11215,
+          "aisle": "Produce",
+          "image": "garlic.png",
+          "consistency": "SOLID",
+          "name": "garlic",
+          "nameClean": "garlic",
+          "original": "1 clove garlic, minced",
+          "originalName": "garlic, minced",
+          "amount": 1.0,
+          "unit": "clove",
+          "meta": [
+            "minced"
+          ],
+          "measures": {
+            "us": {
+              "amount": 1.0,
+              "unitShort": "clove",
+              "unitLong": "clove"
+            },
+            "metric": {
+              "amount": 1.0,
+              "unitShort": "clove",
+              "unitLong": "clove"
+            }
+          }
+        },
+        {
+          "id": 1145,
+          "aisle": "Milk, Eggs, Other Dairy",
+          "image": "butter-sliced.jpg",
+          "consistency": "SOLID",
+          "name": "butter",
+          "nameClean": "unsalted butter",
+          "original": "2 tablespoons unsalted butter",
+          "originalName": "unsalted butter",
+          "amount": 2.0,
+          "unit": "tablespoons",
+          "meta": [
+            "unsalted"
+          ],
+          "measures": {
+            "us": {
+              "amount": 2.0,
+              "unitShort": "Tbsps",
+              "unitLong": "Tbsps"
+            },
+            "metric": {
+              "amount": 2.0,
+              "unitShort": "Tbsps",
+              "unitLong": "Tbsps"
+            }
+          }
+        },
+        {
+          "id": 11549,
+          "aisle": "Canned and Jarred",
+          "image": "tomato-sauce-or-pasta-sauce.jpg",
+          "consistency": "SOLID",
+          "name": "tomato sauce",
+          "nameClean": "canned tomato sauce",
+          "original": "1 1/2 cups tomato sauce",
+          "originalName": "tomato sauce",
+          "amount": 1.5,
+          "unit": "cups",
+          "meta": [],
+          "measures": {
+            "us": {
+              "amount": 1.5,
+              "unitShort": "cups",
+              "unitLong": "cups"
+            },
+            "metric": {
+              "amount": 354.882,
+              "unitShort": "ml",
+              "unitLong": "milliliters"
+            }
+          }
+        },
+        {
+          "id": 2048,
+          "aisle": "Oil, Vinegar, Salad Dressing",
+          "image": "apple-cider-vinegar.jpg",
+          "consistency": "LIQUID",
+          "name": "apple cider vinegar",
+          "nameClean": "apple cider vinegar",
+          "original": "cup apple cider vinegar",
+          "originalName": "apple cider vinegar",
+          "amount": 1.0,
+          "unit": "cup",
+          "meta": [],
+          "measures": {
+            "us": {
+              "amount": 1.0,
+              "unitShort": "cup",
+              "unitLong": "cup"
+            },
+            "metric": {
+              "amount": 236.588,
+              "unitShort": "ml",
+              "unitLong": "milliliters"
+            }
+          }
+        },
+        {
+          "id": 19296,
+          "aisle": "Nut butters, Jams, and Honey",
+          "image": "honey.png",
+          "consistency": "LIQUID",
+          "name": "honey",
+          "nameClean": "honey",
+          "original": "cup honey",
+          "originalName": "honey",
+          "amount": 1.0,
+          "unit": "cup",
+          "meta": [],
+          "measures": {
+            "us": {
+              "amount": 1.0,
+              "unitShort": "cup",
+              "unitLong": "cup"
+            },
+            "metric": {
+              "amount": 236.588,
+              "unitShort": "ml",
+              "unitLong": "milliliters"
+            }
+          }
+        },
+        {
+          "id": 6168,
+          "aisle": "Condiments",
+          "image": "hot-sauce-or-tabasco.png",
+          "consistency": "LIQUID",
+          "name": "hot sauce",
+          "nameClean": "hot sauce",
+          "original": "1 tablespoon bottled pepper sauce or hot sauce (I used Sriracha)",
+          "originalName": "bottled pepper sauce or hot sauce (I used Sriracha)",
+          "amount": 1.0,
+          "unit": "tablespoon",
+          "meta": [
+            "(I used Sriracha)"
+          ],
+          "measures": {
+            "us": {
+              "amount": 1.0,
+              "unitShort": "Tbsp",
+              "unitLong": "Tbsp"
+            },
+            "metric": {
+              "amount": 1.0,
+              "unitShort": "Tbsp",
+              "unitLong": "Tbsp"
+            }
+          }
+        },
+        {
+          "id": 2031,
+          "aisle": "Spices and Seasonings",
+          "image": "chili-powder.jpg",
+          "consistency": "SOLID",
+          "name": "cayenne pepper",
+          "nameClean": "ground cayenne pepper",
+          "original": "2 teaspoons cayenne pepper",
+          "originalName": "cayenne pepper",
+          "amount": 2.0,
+          "unit": "teaspoons",
+          "meta": [],
+          "measures": {
+            "us": {
+              "amount": 2.0,
+              "unitShort": "tsps",
+              "unitLong": "teaspoons"
+            },
+            "metric": {
+              "amount": 2.0,
+              "unitShort": "tsps",
+              "unitLong": "teaspoons"
+            }
+          }
+        },
+        {
+          "id": 1022009,
+          "aisle": "Ethnic Foods;Spices and Seasonings",
+          "image": "chili-powder.jpg",
+          "consistency": "SOLID",
+          "name": "ancho chili powder",
+          "nameClean": "ancho chili powder",
+          "original": "2 teaspoons ancho chili powder",
+          "originalName": "ancho chili powder",
+          "amount": 2.0,
+          "unit": "teaspoons",
+          "meta": [],
+          "measures": {
+            "us": {
+              "amount": 2.0,
+              "unitShort": "tsps",
+              "unitLong": "teaspoons"
+            },
+            "metric": {
+              "amount": 2.0,
+              "unitShort": "tsps",
+              "unitLong": "teaspoons"
+            }
+          }
+        },
+        {
+          "id": 2047,
+          "aisle": "Spices and Seasonings",
+          "image": "salt.jpg",
+          "consistency": "SOLID",
+          "name": "salt",
+          "nameClean": "table salt",
+          "original": "1/2 teaspoon salt",
+          "originalName": "salt",
+          "amount": 0.5,
+          "unit": "teaspoon",
+          "meta": [],
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitShort": "tsps",
+              "unitLong": "teaspoons"
+            },
+            "metric": {
+              "amount": 0.5,
+              "unitShort": "tsps",
+              "unitLong": "teaspoons"
+            }
+          }
+        },
+        {
+          "id": 1002024,
+          "aisle": "Spices and Seasonings",
+          "image": "dry-mustard.jpg",
+          "consistency": "SOLID",
+          "name": "mustard",
+          "nameClean": "mustard powder",
+          "original": "1/2 teaspoon dry mustard",
+          "originalName": "dry mustard",
+          "amount": 0.5,
+          "unit": "teaspoon",
+          "meta": [
+            "dry"
+          ],
+          "measures": {
+            "us": {
+              "amount": 0.5,
+              "unitShort": "tsps",
+              "unitLong": "teaspoons"
+            },
+            "metric": {
+              "amount": 0.5,
+              "unitShort": "tsps",
+              "unitLong": "teaspoons"
+            }
+          }
+        },
+        {
+          "id": 11124,
+          "aisle": "Produce",
+          "image": "sliced-carrot.png",
+          "consistency": "SOLID",
+          "name": "vegetable scraps - carrot",
+          "nameClean": "carrot",
+          "original": "vegetable scraps – carrot, onion, ce",
+          "originalName": "vegetable scraps – carrot, onion, ce",
+          "amount": 6.0,
+          "unit": "servings",
+          "meta": [],
+          "measures": {
+            "us": {
+              "amount": 6.0,
+              "unitShort": "servings",
+              "unitLong": "servings"
+            },
+            "metric": {
+              "amount": 6.0,
+              "unitShort": "servings",
+              "unitLong": "servings"
+            }
+          }
+        },
+        {
+          "id": 6170,
+          "aisle": "Canned and Jarred",
+          "image": "beef-broth.png",
+          "consistency": "LIQUID",
+          "name": "beef stock",
+          "nameClean": "beef stock",
+          "original": "2 cups chicken or beef stock, preferably homemade",
+          "originalName": "chicken or beef stock, preferably homemade",
+          "amount": 2.0,
+          "unit": "cups",
+          "meta": [
+            "homemade"
+          ],
+          "measures": {
+            "us": {
+              "amount": 2.0,
+              "unitShort": "cups",
+              "unitLong": "cups"
+            },
+            "metric": {
+              "amount": 473.176,
+              "unitShort": "ml",
+              "unitLong": "milliliters"
+            }
+          }
+        },
+        {
+          "id": 14412,
+          "aisle": "Beverages",
+          "image": "water.png",
+          "consistency": "LIQUID",
+          "name": "water",
+          "nameClean": "water",
+          "original": "water to cover, if needed",
+          "originalName": "water to cover, if needed",
+          "amount": 6.0,
+          "unit": "servings",
+          "meta": [
+            "to cover, if needed"
+          ],
+          "measures": {
+            "us": {
+              "amount": 6.0,
+              "unitShort": "servings",
+              "unitLong": "servings"
+            },
+            "metric": {
+              "amount": 6.0,
+              "unitShort": "servings",
+              "unitLong": "servings"
+            }
+          }
+        }
+      ],
+      "id": 662463,
+      "title": "Sweet and Spicy Country-Style Ribs",
+      "readyInMinutes": 45,
+      "servings": 6,
+      "sourceUrl": "https://www.foodista.com/recipe/2ZF5G885/sweet-and-spicy-country-style-ribs",
+      "image": "https://spoonacular.com/recipeImages/662463-556x370.jpg",
+      "imageType": "jpg",
+      "summary": "Sweet and Spicy Country-Style Ribs might be a good recipe to expand your main course repertoire. One portion of this dish contains about <b>25g of protein</b>, <b>20g of fat</b>, and a total of <b>506 calories</b>. This gluten free recipe serves 6 and costs <b>$3.31 per serving</b>. Head to the store and pick up beef stock, honey, butter, and a few other things to make it today. 3 people found this recipe to be scrumptious and satisfying. It is brought to you by Foodista. From preparation to the plate, this recipe takes around <b>45 minutes</b>. Overall, this recipe earns a <b>good spoonacular score of 46%</b>. Try <a href=\"https://spoonacular.com/recipes/sweet-and-sour-country-style-ribs-487238\">Sweet and Sour Country Style Ribs</a>, <a href=\"https://spoonacular.com/recipes/sweet-n-spicy-country-ribs-397391\">Sweet 'n' Spicy Country Ribs</a>, and <a href=\"https://spoonacular.com/recipes/country-style-ribs-146904\">Country Style Ribs</a> for similar recipes.",
+      "cuisines": [],
+      "dishTypes": [
+        "lunch",
+        "main course",
+        "main dish",
+        "dinner"
+      ],
+      "diets": [
+        "gluten free"
+      ],
+      "occasions": [],
+      "instructions": "Heat the fat in a 6-quart enameled Dutch oven over medium high heat and brown the ribs on all sides.  Pour in the stock; add water to cover if necessary.  Add the vegetable scraps and bring to a boil.  Lower the heat to a simmer, cover and cook for 45 minutes to an hour, or until the ribs are tender.\nWhile the ribs are braising, saute the onions over medium-low heat in a large cast iron skillet until soft; add the garlic and saute for another minute more.  Stir in tomato sauce, vinegar, honey, pepper or hot sauce, cayenne pepper, chili chili powder, salt and dry mustard. Bring the mixture to a boil, then reduce heat and simmer, uncovered for 25 minutes, stirring occasionally.\nWhen the ribs are tender, remove them from the braising liquid and add them to the spicy tomato sauce in the pan.  Raise the heat and cook, stirring frequently, until the sauce has glazed the ribs, about 10 minutes.  Serve with the remaining sauce on the side, if desired.",
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "step": "Heat the fat in a 6-quart enameled Dutch oven over medium high heat and brown the ribs on all sides.",
+              "ingredients": [
+                {
+                  "id": 23236,
+                  "name": "ribs",
+                  "localizedName": "ribs",
+                  "image": "ribs.png"
+                }
+              ],
+              "equipment": [
+                {
+                  "id": 404667,
+                  "name": "dutch oven",
+                  "localizedName": "dutch oven",
+                  "image": "dutch-oven.jpg"
+                }
+              ]
+            },
+            {
+              "number": 2,
+              "step": "Pour in the stock; add water to cover if necessary.",
+              "ingredients": [
+                {
+                  "id": 1006615,
+                  "name": "stock",
+                  "localizedName": "stock",
+                  "image": "chicken-broth.png"
+                },
+                {
+                  "id": 14412,
+                  "name": "water",
+                  "localizedName": "water",
+                  "image": "water.png"
+                }
+              ],
+              "equipment": []
+            },
+            {
+              "number": 3,
+              "step": "Add the vegetable scraps and bring to a boil.  Lower the heat to a simmer, cover and cook for 45 minutes to an hour, or until the ribs are tender.",
+              "ingredients": [
+                {
+                  "id": 11583,
+                  "name": "vegetable",
+                  "localizedName": "vegetable",
+                  "image": "mixed-vegetables.png"
+                },
+                {
+                  "id": 23236,
+                  "name": "ribs",
+                  "localizedName": "ribs",
+                  "image": "ribs.png"
+                }
+              ],
+              "equipment": [],
+              "length": {
+                "number": 45,
+                "unit": "minutes"
+              }
+            },
+            {
+              "number": 4,
+              "step": "While the ribs are braising, saute the onions over medium-low heat in a large cast iron skillet until soft; add the garlic and saute for another minute more.  Stir in tomato sauce, vinegar, honey, pepper or hot sauce, cayenne pepper, chili chili powder, salt and dry mustard. Bring the mixture to a boil, then reduce heat and simmer, uncovered for 25 minutes, stirring occasionally.",
+              "ingredients": [
+                {
+                  "id": 2031,
+                  "name": "cayenne pepper",
+                  "localizedName": "cayenne pepper",
+                  "image": "chili-powder.jpg"
+                },
+                {
+                  "id": 2009,
+                  "name": "chili powder",
+                  "localizedName": "chili powder",
+                  "image": "chili-powder.jpg"
+                },
+                {
+                  "id": 11549,
+                  "name": "tomato sauce",
+                  "localizedName": "tomato sauce",
+                  "image": "tomato-sauce-or-pasta-sauce.jpg"
+                },
+                {
+                  "id": 1002024,
+                  "name": "mustard powder",
+                  "localizedName": "mustard powder",
+                  "image": "dry-mustard.jpg"
+                },
+                {
+                  "id": 6168,
+                  "name": "hot sauce",
+                  "localizedName": "hot sauce",
+                  "image": "hot-sauce-or-tabasco.png"
+                },
+                {
+                  "id": 2053,
+                  "name": "vinegar",
+                  "localizedName": "vinegar",
+                  "image": "vinegar-(white).jpg"
+                },
+                {
+                  "id": 11215,
+                  "name": "garlic",
+                  "localizedName": "garlic",
+                  "image": "garlic.png"
+                },
+                {
+                  "id": 11282,
+                  "name": "onion",
+                  "localizedName": "onion",
+                  "image": "brown-onion.png"
+                },
+                {
+                  "id": 1002030,
+                  "name": "pepper",
+                  "localizedName": "pepper",
+                  "image": "pepper.jpg"
+                },
+                {
+                  "id": 11819,
+                  "name": "chili pepper",
+                  "localizedName": "chili pepper",
+                  "image": "red-chili.jpg"
+                },
+                {
+                  "id": 19296,
+                  "name": "honey",
+                  "localizedName": "honey",
+                  "image": "honey.png"
+                },
+                {
+                  "id": 23236,
+                  "name": "ribs",
+                  "localizedName": "ribs",
+                  "image": "ribs.png"
+                },
+                {
+                  "id": 2047,
+                  "name": "salt",
+                  "localizedName": "salt",
+                  "image": "salt.jpg"
+                }
+              ],
+              "equipment": [
+                {
+                  "id": 404645,
+                  "name": "frying pan",
+                  "localizedName": "frying pan",
+                  "image": "pan.png"
+                }
+              ],
+              "length": {
+                "number": 25,
+                "unit": "minutes"
+              }
+            },
+            {
+              "number": 5,
+              "step": "When the ribs are tender, remove them from the braising liquid and add them to the spicy tomato sauce in the pan.  Raise the heat and cook, stirring frequently, until the sauce has glazed the ribs, about 10 minutes.",
+              "ingredients": [
+                {
+                  "id": 11549,
+                  "name": "tomato sauce",
+                  "localizedName": "tomato sauce",
+                  "image": "tomato-sauce-or-pasta-sauce.jpg"
+                },
+                {
+                  "id": 0,
+                  "name": "sauce",
+                  "localizedName": "sauce",
+                  "image": ""
+                },
+                {
+                  "id": 23236,
+                  "name": "ribs",
+                  "localizedName": "ribs",
+                  "image": "ribs.png"
+                }
+              ],
+              "equipment": [
+                {
+                  "id": 404645,
+                  "name": "frying pan",
+                  "localizedName": "frying pan",
+                  "image": "pan.png"
+                }
+              ],
+              "length": {
+                "number": 10,
+                "unit": "minutes"
+              }
+            },
+            {
+              "number": 6,
+              "step": "Serve with the remaining sauce on the side, if desired.",
+              "ingredients": [
+                {
+                  "id": 0,
+                  "name": "sauce",
+                  "localizedName": "sauce",
+                  "image": ""
+                }
+              ],
+              "equipment": []
+            }
+          ]
+        }
+      ],
+      "originalId": null,
+      "spoonacularSourceUrl": "https://spoonacular.com/sweet-and-spicy-country-style-ribs-662463"
+    }
+  ]
+}
