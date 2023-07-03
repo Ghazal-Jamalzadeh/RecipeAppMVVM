@@ -2,6 +2,7 @@ package com.jmzd.ghazal.recipeappmvvm.models.lucky
 
 
 import com.google.gson.annotations.SerializedName
+import com.jmzd.ghazal.recipeappmvvm.models.detail.ResponseDetail
 
 data class ResponseLucky(
     @SerializedName("recipes")
@@ -11,7 +12,7 @@ data class ResponseLucky(
         @SerializedName("aggregateLikes")
         val aggregateLikes: Int?, // 3
         @SerializedName("analyzedInstructions")
-        val analyzedInstructions: List<AnalyzedInstruction?>?,
+        val analyzedInstructions: List<ResponseDetail.AnalyzedInstruction>?,
         @SerializedName("cheap")
         val cheap: Boolean?, // false
         @SerializedName("cookingMinutes")
@@ -23,11 +24,11 @@ data class ResponseLucky(
         @SerializedName("dairyFree")
         val dairyFree: Boolean?, // false
         @SerializedName("diets")
-        val diets: List<String?>?,
+        val diets: List<String>?,
         @SerializedName("dishTypes")
         val dishTypes: List<String?>?,
         @SerializedName("extendedIngredients")
-        val extendedIngredients: List<ExtendedIngredient?>?,
+        val extendedIngredients: List<ResponseDetail.ExtendedIngredient>?,
         @SerializedName("gaps")
         val gaps: String?, // no
         @SerializedName("glutenFree")
@@ -80,106 +81,5 @@ data class ResponseLucky(
         val veryPopular: Boolean?, // false
         @SerializedName("weightWatcherSmartPoints")
         val weightWatcherSmartPoints: Int? // 20
-    ) {
-        data class AnalyzedInstruction(
-            @SerializedName("name")
-            val name: String?,
-            @SerializedName("steps")
-            val steps: List<Step?>?
-        ) {
-            data class Step(
-                @SerializedName("equipment")
-                val equipment: List<Equipment?>?,
-                @SerializedName("ingredients")
-                val ingredients: List<Ingredient?>?,
-                @SerializedName("length")
-                val length: Length?,
-                @SerializedName("number")
-                val number: Int?, // 1
-                @SerializedName("step")
-                val step: String? // Heat the fat in a 6-quart enameled Dutch oven over medium high heat and brown the ribs on all sides.
-            ) {
-                data class Equipment(
-                    @SerializedName("id")
-                    val id: Int?, // 404667
-                    @SerializedName("image")
-                    val image: String?, // dutch-oven.jpg
-                    @SerializedName("localizedName")
-                    val localizedName: String?, // dutch oven
-                    @SerializedName("name")
-                    val name: String? // dutch oven
-                )
-
-                data class Ingredient(
-                    @SerializedName("id")
-                    val id: Int?, // 23236
-                    @SerializedName("image")
-                    val image: String?, // ribs.png
-                    @SerializedName("localizedName")
-                    val localizedName: String?, // ribs
-                    @SerializedName("name")
-                    val name: String? // ribs
-                )
-
-                data class Length(
-                    @SerializedName("number")
-                    val number: Int?, // 45
-                    @SerializedName("unit")
-                    val unit: String? // minutes
-                )
-            }
-        }
-
-        data class ExtendedIngredient(
-            @SerializedName("aisle")
-            val aisle: String?, // Meat
-            @SerializedName("amount")
-            val amount: Double?, // 2.0
-            @SerializedName("consistency")
-            val consistency: String?, // SOLID
-            @SerializedName("id")
-            val id: Int?, // 10013149
-            @SerializedName("image")
-            val image: String?, // beef-short-ribs.jpg
-            @SerializedName("measures")
-            val measures: Measures?,
-            @SerializedName("meta")
-            val meta: List<String?>?,
-            @SerializedName("name")
-            val name: String?, // beef short ribs
-            @SerializedName("nameClean")
-            val nameClean: String?, // bone in beef short ribs
-            @SerializedName("original")
-            val original: String?, // 2 pounds country-style pork ribs or beef short ribs
-            @SerializedName("originalName")
-            val originalName: String?, // country-style pork ribs or beef short ribs
-            @SerializedName("unit")
-            val unit: String? // pounds
-        ) {
-            data class Measures(
-                @SerializedName("metric")
-                val metric: Metric?,
-                @SerializedName("us")
-                val us: Us?
-            ) {
-                data class Metric(
-                    @SerializedName("amount")
-                    val amount: Double?, // 907.185
-                    @SerializedName("unitLong")
-                    val unitLong: String?, // grams
-                    @SerializedName("unitShort")
-                    val unitShort: String? // g
-                )
-
-                data class Us(
-                    @SerializedName("amount")
-                    val amount: Double?, // 2.0
-                    @SerializedName("unitLong")
-                    val unitLong: String?, // pounds
-                    @SerializedName("unitShort")
-                    val unitShort: String? // lb
-                )
-            }
-        }
-    }
+    )
 }

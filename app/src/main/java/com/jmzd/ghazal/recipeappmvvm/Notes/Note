@@ -1428,3 +1428,36 @@ Favorites Database---------------------------------------------------پیاده 
 5- local dataSource
 
 6- viewModel
+
+ارور------------------------------------------------------------------------------------------------
+Type mismatch: inferred type is ResponseLucky.Recipe.AnalyzedInstruction.Step? but ResponseLucky.Recipe.AnalyzedInstruction.Step was expected
+
+زمانی به این ارور برمیخوریم که مثلا کلاس استپ رو توی دو تا ریسپانس داریم و ساختار کاملا یکسانی هم داره توی هر دو
+ولی توی آداپتر ما مثلا از این مدل بگیریم به اون یکی مدل گیر میده
+باید چیکار کنیم؟
+استپ رو ما هم توی رسپانس دیتیل داریم هم لاکی ولی آداپتر از دیتیل استفاده میکنه و ارور تایپ میس مچ میگیریم اگه استپ لاکی رو بدیم
+در حالی که هر دو استپ یکی هستن در اصل
+
+راه حل اول:
+یک آداپتر جدا برای لاکی درست کنیم
+که خب این روش اصلا بهینه و به صرفه نیست
+
+راه حل دوم:
+مگه دیتاهامون دقیقا یکی نیست؟
+خب میایم کلاس های مشترک بین لاکی و دیتیل رو از دیتیل ایمپورت میکنیم توی لاکی
+و بدنه شو اصلا از داخل لاکی حذذف میکنیم
+
+ @SerializedName("extendedIngredients")
+  val extendedIngredients: List<ExtendedIngredient>?,
+  کد بالا تبدیل میشه به
+  @SerializedName("extendedIngredients")
+   val extendedIngredients: List<ResponseDetail.ExtendedIngredient>?,
+
+همچنین
+
+        @SerializedName("analyzedInstructions")
+        val analyzedInstructions: List<AnalyzedInstruction>?,
+
+        تبدیل میشه به
+                @SerializedName("analyzedInstructions")
+                val analyzedInstructions: List<ResponseDetail.AnalyzedInstruction>?,
