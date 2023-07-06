@@ -1587,3 +1587,13 @@ https://api.spoonacular.com/recipes/random?apiKey=5ace23b237e0430590fc4f8f8f0cfc
     }
   ]
 }
+
+Search----------------------------------------------------------------------------------------------
+GET https://api.spoonacular.com/recipes/complexSearch
+
+Parameters
+Name	Type	Example	Description
+query	string	pasta	The (natural language) recipe search query.
+
+پارامترهای خیلی زیادی میگیرد ولی پارامتر بالا برای سرچ با کلمه کلیدی اجباری است
+ما قبلا از همین api برای دریافت لیست رسپی ها استفاده کردیم
